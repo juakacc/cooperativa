@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Verificar chaves em arrays
+ * Verificar uma chave no array
  * @param $array
  * @param $key
  * @return string
@@ -42,4 +42,12 @@ function validar_data($data) {
         return false;
     }
     return true;
+}
+
+function mostrar_data($data) {
+    if (validar_data($data)) {
+        $a = explode('-', $data);
+        return $a[2] . '/' . $a[1] . '/' . $a[0];
+    }
+    return '';
 }

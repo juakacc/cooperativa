@@ -4,8 +4,8 @@ define('ABSPATH', dirname(__FILE__));
 define('HOME', '/cooperativa');
 
 define('DB_LOCAL', 'localhost');
-define('DB_USER', 'juaka');
-define('DB_PASS', '123');
+define('DB_USER', '');
+define('DB_PASS', '');
 define('DB_BASE', 'cooperativa');
 
 //session_start();

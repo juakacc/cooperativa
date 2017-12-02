@@ -1,40 +1,35 @@
 <?php
 $model->validate_register_form();
 ?>
-<h1>Cooperativa: União</h1>
 
-<p>Cadastro de Empresa receptora</p>
+<h5>Cadastro de empresa</h5>
+<p>Cadastre uma nova empresa para receber material</p>
 
-<?php foreach ($model->form_msg as $erro): ?>
-    <p class="erro"><?php echo $erro; ?></p>
-<?php endforeach; ?>
+<form method="POST" class="form-dados">
 
-<form method="POST">
-    <table class="table">
-        <tr>
-            <td>CNPJ:</td>
-            <td><input type="text" name="cnpj" value="<?php echo check_array($model->form_data,'cnpj'); ?>" placeholder="Apenas números"/></td>
-        </tr>
+    <div class="form-group row">
+        <label class="col-2 col-form-label" for="cnpj">CNPJ</label>
+        <div class="col-10">
+            <input type="text" name="cnpj" id="cnpj" value="<?php echo check_array($model->form_data,'cnpj'); ?>" placeholder="Apenas números" class="form-control"/>
+        </div>
+    </div>
 
-        <tr>
-            <td>Razão social:</td>
-            <td><input type="text" name="razao" value="<?php echo check_array($model->form_data,'razao'); ?>"/></td>
-        </tr>
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Razão social</label>
+        <div class="col-10">
+            <input type="text" name="razao" value="<?php echo check_array($model->form_data,'razao'); ?>" class="form-control"/>
+        </div>
+    </div>
 
-        <?php include ABSPATH . '/views/_includes/endereco.php'; ?>
+    <?php include ABSPATH . '/views/_includes/endereco.php'; ?>
 
-        <tr>
-            <td>Telefone:</td>
-            <td><input type="text" name="telefone" value="<?php echo check_array($model->form_data,'telefone'); ?>" placeholder="Apenas números"/></td>
-        </tr>
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Telefone</label>
+        <div class="col-10">
+            <input type="text" name="telefone" value="<?php echo check_array($model->form_data,'telefone'); ?>" placeholder="Apenas números" class="form-control"/>
+        </div>
+    </div>
 
-<!--        <tr>-->
-<!--            <td>Senha: </td>-->
-<!--            <td><input type="password" name="senha" /></td>-->
-<!--        </tr>-->
-
-        <?php include ABSPATH . '/views/_includes/botoes-form.php'; ?>
-
-    </table>
+    <?php include ABSPATH . '/views/_includes/botoes-form.php'; ?>
 </form>
 

@@ -3,30 +3,33 @@ $model->validate_register_form();
 $colaboradores = $model->getColaboradores();
 ?>
 
-<h3>Registro de diária...</h3>
+<h5>Registro de diária</h5>
+<p>Registre a presença de um colaborador em um determinado dia.</p>
 
-<?php foreach ($model->form_msg as $erro): ?>
-    <p class="erro"><?php echo $erro; ?></p>
-<?php endforeach; ?>
+<div class="row justify-content-center">
+    <div class="col-6">
+        <form method="POST" class="form-dados">
 
-<form method="POST">
-    <table class="table">
-        <tr>
-            <td><label>Colaborador: </label></td>
-            <td>
-                <select name="cpf" class="form-control">
-                    <?php foreach ($colaboradores as $c): ?>
-                        <option value="<?php echo $c->getCpf(); ?>"><?php echo $c->getNome(); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </td>
-        </tr>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Colaborador</label>
+                <div class="col-8">
+                    <select name="cpf" class="form-control custom-select">
+                        <?php foreach ($colaboradores as $c): ?>
+                            <option value="<?php echo $c->getCpf(); ?>"><?php echo $c->getNome(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
 
-        <tr>
-            <td><label>Data: </label></td>
-            <td><input type="date" name="data" value="<?php echo check_array($this->form_data, 'data'); ?>" class="form-control"/></td>
-        </tr>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Data</label>
+                <div class="col-8">
+                    <input type="date" name="data"
+                           value="<?php echo check_array($model->form_data, 'data'); ?>" class="form-control"/>
+                </div>
+            </div>
 
-        <?php include ABSPATH . '/views/_includes/botoes-form.php'; ?>
-    </table>
-</form>
+            <?php include ABSPATH . '/views/_includes/botoes-form.php'; ?>
+        </form>
+    </div>
+</div>

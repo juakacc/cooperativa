@@ -2,34 +2,41 @@
 $colaboracoes = $model->getColaboracoes($data);
 ?>
 
-<a href="<?php echo $_SESSION['goto_url']; ?>"><span class="glyphicon glyphicon-arrow-left"></span> Voltar</a>
+<div class="row">
+    <div class="col">
+        <h5>Colaborações do dia <?php echo mostrar_data($data); ?></h5>
+    </div>
+
+    <div class="col">
+        <a href="<?php echo $_SESSION['goto_url']; ?>" class="btn btn-dark">Voltar</a>
+    </div>
+</div>
 
 <?php if (!empty($colaboracoes)): ?>
 
-    <h3>Colaborações do dia: <?php echo $data; ?></h3>
+    <h5>Colaborações do dia: <?php echo mostrar_data($data); ?></h5>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Data</th><th>Função</th><th>Descrição</th><th>Doador</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <?php foreach ($colaboracoes as $c):
-        $colaborador = $model->getColaboradorByCpf($c->getCpf());
+    <table class="table table-bordered">
+        <tr>
+            <th>Data</th><th>Função</th><th>Descrição</th><th>Doador</th>
+        </tr>
+        <?php foreach ($colaboracoes as $c):
+                $colaborador = $model->getColaboradorByCpf($c->getCpf());
         ?>
 
-        <tr>
-            <td><?php echo $c->getData(); ?></td>
-            <td><?php echo $c->getFuncao(); ?></td>
-            <td><?php echo $c->getDescricao(); ?></td>
-            <td><?php echo $colaborador->getNome(); ?></td>
-        </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
+            <tr>
+                <td><?php echo mostrar_data($c->getData()); ?></td>
+                <td><?php echo $c->getFuncao(); ?></td>
+                <td><?php echo $c->getDescricao(); ?></td>
+                <td><?php echo $colaborador->getNome(); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 
 <?php else: ?>
-<h3>Nenhuma colaboração localizada para o dia <?php echo $data; ?>, tente novamente mais tarde.</h3>
+    <div class="row">
+        <div class="col" align="center">
+            <p>Nenhuma colaboração realizada.</p>
+        </div>
+    </div>
 <?php endif; ?>

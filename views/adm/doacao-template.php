@@ -3,40 +3,40 @@ $model->validate_register_form();
 $doadores = $model->getDoadores();
 ?>
 
-<h1>Registrar doação</h1>
+<h5>Registrar doação</h5>
+<p>Registre uma docação anônima ou escolha um doador</p>
 
-<?php foreach ($model->form_msg as $erro): ?>
-    <p class="erro"><?php echo $erro; ?></p>
-<?php endforeach; ?>
+<div class="row justify-content-center">
+    <div class="col-8">
 
-<form method="POST">
-    <table class="table">
-        <tr>
-            <td>Doador: </td>
-            <td>
-                <select name="cpf" class="form-control">
-                    <?php foreach ($doadores as $d): ?>
-                        <option value="<?php echo $d->getCpf(); ?>"><?php echo $d->getNome(); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </td>
-        </tr>
+        <form method="POST" class="form-dados">
 
-        <tr>
-            <td></td>
-            <td><a href="<?php $_SESSION['goto_url'] = HOME . '/register/doacao'; echo HOME; ?>/register/doador">Add Doador</a></td>
-        </tr>
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Doador</label>
+                <div class="col-10">
+                    <select name="cpf" class="form-control custom-select">
+                        <?php foreach ($doadores as $d): ?>
+                            <option value="<?php echo $d->getCpf(); ?>"><?php echo $d->getNome(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
 
-        <tr>
-            <td>Data: </td>
-            <td><input type="date" name="data" value="<?php echo check_array($model->form_data, 'data'); ?>" class="form-control"/></td>
-        </tr>
-        
-        <tr>
-            <td>Descrição: </td>
-            <td><textarea name="descricao" class="form-control"><?php echo check_array($model->form_data, 'descricao'); ?></textarea></td>
-        </tr>
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Data</label>
+                <div class="col-10">
+                    <input type="date" name="data" value="<?php echo check_array($model->form_data, 'data'); ?>" class="form-control"/>
+                </div>
+            </div>
 
-        <?php include ABSPATH . '/views/_includes/botoes-form.php'; ?>
-    </table>
-</form>
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Descrição</label>
+                <div class="col-10">
+                    <textarea name="descricao" class="form-control"><?php echo check_array($model->form_data, 'descricao'); ?></textarea>
+                </div>
+            </div>
+
+            <?php include ABSPATH . '/views/_includes/botoes-form.php'; ?>
+        </form>
+    </div>
+</div>

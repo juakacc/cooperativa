@@ -29,7 +29,12 @@ class MainModel {
      * @param $controller
      */
     public function __construct($controller) {
-        $this->mysqli = new mysqli('localhost', 'juaka', '123', 'cooperativa');
+        $this->mysqli = new mysqli(DB_LOCAL, DB_USER,
+            DB_PASS, DB_BASE);
+        if (mysqli_connect_errno()) {
+            echo 'Erro na conexão';
+            die();
+        }
         $this->controller = $controller;
         $this->form_msg = array();
     }

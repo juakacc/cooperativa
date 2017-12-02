@@ -2,33 +2,39 @@
 $encaminhamentos = $model->getEncaminhamentos($data);
 ?>
 
-<a href="<?php echo $_SESSION['goto_url']; ?>"><span class="glyphicon glyphicon-arrow-left"></span> Voltar</a>
+<div class="row">
+    <div class="col">
+        <h5>Encaminhamentos do dia <?php echo mostrar_data($data); ?></h5>
+    </div>
+
+    <div class="col">
+        <a href="<?php echo $_SESSION['goto_url']; ?>" class="btn btn-dark">Voltar</a>
+    </div>
+</div>
 
 <?php if (!empty($encaminhamentos)): ?>
 
-    <h3>Encaminhamentos do dia: <?php echo $data; ?></h3>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Data</th><th>Descrição</th><th>Empresa</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <?php foreach ($encaminhamentos as $e):
-        $empresa = $model->getEmpresaByCnpj($e->getCnpj());
-        ?>
-
+    <table class="table table-bordered">
         <tr>
-            <td><?php echo $e->getData(); ?></td>
-            <td><?php echo $e->getDescricao(); ?></td>
-            <td><?php echo $empresa->getRazao(); ?></td>
+            <th>Data</th><th>Descrição</th><th>Empresa</th>
         </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
+
+        <?php foreach ($encaminhamentos as $e):
+                $empresa = $model->getEmpresaByCnpj($e->getCnpj());
+        ?>
+            <tr>
+                <td><?php echo mostrar_data($e->getData()); ?></td>
+                <td><?php echo $e->getDescricao(); ?></td>
+                <td><?php echo $empresa->getRazao(); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 
 <?php else: ?>
-<h3>Nenhum encaminhamento localizado para o dia <?php echo $data; ?>, tente novamente mais tarde.</h3>
+
+    <div class="row">
+        <div class="col" align="center">
+            <p>Nenhum encaminhamento realizado.</p>
+        </div>
+    </div>
 <?php endif; ?>

@@ -26,8 +26,12 @@ class RegisterDoacaoModel extends MainModel {
             }
 
             if (!validar_data($this->form_data['data'])) {
-                $this->form_msg[] = 'Digite uma data válida...';
-                $this->form_data['data'] = '';
+                $this->form_msg['data'] = 'Digite uma data válida...';
+                $this->form_data['data'] = date('Y-m-d');
+            }
+
+            if (strlen($this->form_data['descricao']) == 0) {
+                $this->form_msg['descricao'] = 'Descrição inválida...';
             }
 
             if (empty($this->form_msg)) {

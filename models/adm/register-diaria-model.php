@@ -36,6 +36,8 @@ class RegisterDiariaModel extends MainModel {
                 $colaborador->registrarPresenca($this->form_data['data']);
                 header('Location: ' . HOME . '/adm');
             }
+        } else {
+            $this->form_data['data'] = date('Y-m-d');
         }
     }
 

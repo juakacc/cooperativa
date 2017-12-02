@@ -1,14 +1,18 @@
 <?php
 ?>
-<nav class="navbar navbar-azul">
-    <div class="navbar-header">
+<nav class="navbar navbar-expand-md bg-light" style="margin: 0 0 10px 0;">
+    <a class="navbar-brand" href="<?php echo HOME; ?>">Cooperativa: União</a>
 
-        <a class="navbar-brand title">Cooperativa: União</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+           <li class="nav-item">
+               <a class="nav-link">Bem vindo, visitante</a>
+           </li>
 
-        <a class="navbar-brand">Bem vindo, visitante</a>
+        </ul>
+    </div>
 
-        <a class="navbar-brand">Área restrita: <a href="<?php echo HOME; ?>/index/login"><span class="glyphicon glyphicon-lock"></span> Login</a></a>
+    <div>
+        <a href="<?php echo HOME; ?>/index/login" class="btn btn-success">Login</a>
     </div>
 </nav>
-
-

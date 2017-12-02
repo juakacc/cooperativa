@@ -7,26 +7,27 @@
     $c = $model->getColaboradorByCpf($o->getCpf());
 ?>
 
-<a href="<?php echo $_SESSION['goto_url']; ?>" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Voltar</a>
+<div class="row">
+    <div class="col">
+        <h5>Detalhes da observação</h5>
+    </div>
 
-<table class="table">
-    <thead>
+    <div class="col">
+        <a href="<?php echo $_SESSION['goto_url']; ?>" class="btn btn-dark">Voltar</a>
+    </div>
+</div>
+
+<table class="table table-bordered">
     <tr>
-        <th>ID</th>
         <th>Data</th>
         <th>Descrição</th>
         <th>Colaborador</th>
         <th>Endereço</th>
     </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><?php echo $o->getId(); ?></td>
-            <td><?php echo $o->getData(); ?></td>
-            <td><?php echo $o->getDescricao(); ?></td>
-            <td><?php echo $c->getNome(); ?></td>
-            <td><?php echo $o->getLocal(); ?></td>
-        </tr>
-    </tbody>
-
+    <tr>
+        <td><?php echo mostrar_data($o->getData()); ?></td>
+        <td><?php echo $o->getDescricao(); ?></td>
+        <td><?php echo $c->getNome(); ?></td>
+        <td><?php echo $o->getLocal(); ?></td>
+    </tr>
 </table>

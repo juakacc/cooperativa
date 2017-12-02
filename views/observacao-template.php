@@ -1,35 +1,32 @@
 <?php
-$model->validate_register_form();
+    $model->validate_register_form();
 ?>
 
-<h3>Realizar um observação</h3>
+<h5>Observação</h5>
 
-<?php foreach ($model->form_msg as $erro): ?>
-    <p class="erro"><?php echo $erro; ?></p>
-<?php endforeach; ?>
+<p>Informe onde tem material disponível, para que possa ser recolhido</p>
 
-<form method="POST">
+<form method="POST" class="form-dados">
 
-    <table class="table">
-        <p>Localização:</p>
 
-        <?php if($cpf == '00000000000'): ?>
-            <input type="hidden" name="cpf" value="<?php echo $cpf; ?>"/>
 
-            <?php else: ?>
-            <tr>
-                <td>CPF:</td>
-                <td><input type="text" name="cpf" value="<?php echo $cpf; ?>" readonly/></td>
-            </tr>
+        <?php if(isset($cpf)): ?>
+            <div class="form-group row">
+                <label class="col-2 col-form-label">CPF</label>
+                <div class="col-10">
+                    <input type="text" name="cpf" value="<?php echo $cpf; ?>" readonly class="form-control"/>
+                </div>
+            </div>
         <?php endif; ?>
 
         <?php include ABSPATH . '/views/_includes/endereco.php'; ?>
 
-        <tr>
-            <td>Descrição:</td>
-            <td><textarea name="descricao" class="form-control"><?php echo check_array($model->form_data, 'descricao')?></textarea></td>
-        </tr>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Descrição</label>
+            <div class="col-10">
+                <textarea name="descricao" class="form-control"><?php echo check_array($model->form_data, 'descricao')?></textarea>
+            </div>
+        </div>
 
         <?php include ABSPATH . '/views/_includes/botoes-form.php'; ?>
-    </table>
 </form>

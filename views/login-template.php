@@ -2,22 +2,52 @@
 $model->validarLogin();
 ?>
 
-<h2>LOGIN</h2>
+<h5>Login</h5>
+<p>Realize login no sistema para acessar opções restritas</p>
 
 <?php foreach ($model->form_msg as $e): ?>
     <p class="erro"><?php echo $e; ?></p>
 <?php endforeach; ?>
 
-<form method="POST">
-    <p><input type="radio" name="tipo" value="administrador" checked />Admin</p>
-    <p><input type="radio" name="tipo" value="colaborador"/>Colaborador</p>
-    <p><input type="radio" name="tipo" value="doador"/>Doador</p>
-    <p><input type="radio" name="tipo" value="empresa"/>Empresa</p>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form method="POST">
 
-    <input type="text" placeholder="CPF/CNPJ" name="ide" value="<?php echo check_array($model->form_data, 'cpf'); ?>"  class="form-control"/>
-    <input type="password" placeholder="Password" name="senha" class="form-control"/>
-    
-    <input type="submit" value="Entrar" class="btn btn-success"/>
-    <input type="submit" value="Cancelar" name="cancelar" class="btn btn-danger"/>
-</form>
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Forma</label>
+                <div class="col-10">
+                    <select name="tipo" class="form-control custom-select">
+                        <option value="administrador">Admin</option>
+                        <option value="colaborador">Colaborador</option>
+                        <option value="doador">Doador</option>
+                        <option value="empresa">Empresa</option>
+                    </select>
+                </div>
+            </div>
 
+            <div class="form-group row">
+                <label class="col-2 col-form-label">CPF/CNPJ</label>
+                <div class="col-10">
+                    <input type="text" placeholder="CPF/CNPJ" name="ide"
+                           value="<?php echo check_array($model->form_data, 'ide'); ?>"  class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Senha</label>
+                <div class="col-10">
+                    <input type="password" placeholder="Senha" name="senha" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-6">
+                    <input type="submit" value="Entrar" class="btn btn-success form-control"/>
+                </div>
+                <div class="col-6">
+                    <input type="submit" value="Cancelar" name="cancelar" class="btn btn-danger form-control"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -18,7 +18,6 @@ class RegisterController extends MainController {
             return;
         }
         $model = $this->load_model('adm/register-colaborador-model');
-        $tipo = 'Colaborador';
 
         include ABSPATH . '/views/_includes/header.php';
         include ABSPATH . '/views/_includes/header-login.php';
@@ -38,11 +37,10 @@ class RegisterController extends MainController {
             return;
         }
         $model = $this->load_model('adm/register-doador-model');
-        $tipo = 'Doador';
 
         include ABSPATH . '/views/_includes/header.php';
         include ABSPATH . '/views/_includes/header-login.php';
-        include ABSPATH . '/views/adm/register-colaborador-template.php';
+        include ABSPATH . '/views/adm/register-doador-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
 
@@ -150,11 +148,17 @@ class RegisterController extends MainController {
         $model = $this->load_model('colaborador/register-observacao-model');
 
         // Caso não esteja logado, utilizo o anônimo.
-        $cpf = isset($_SESSION['id']) ? $_SESSION['id'] : '00000000000';
+        if (isset($_SESSION['id'])) {
+            $cpf = $_SESSION['id'];
+        }
 
         include ABSPATH . '/views/_includes/header.php';
-        if ($this->logado)
+
+        if ($this->logado) {
             include ABSPATH . '/views/_includes/header-login.php';
+        } else {
+            include ABSPATH . '/views/_includes/header-normal.php';
+        }
         include ABSPATH . '/views/observacao-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }

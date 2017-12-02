@@ -217,8 +217,9 @@ class ExibirModel extends MainModel {
      * Recupera todos os doadores
      * @return array
      */
-    public function getColaboradores() {
+    public function getColaboradores($comAnonimo = false) {
         $sql = "SELECT cpf, nome FROM colaborador";
+        $sql .= ($comAnonimo) ? '' : " WHERE cpf != '00000000000'";
         $colaboradores = array();
 
         if ($stmt = $this->mysqli->prepare($sql)) {
