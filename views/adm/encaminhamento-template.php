@@ -1,6 +1,7 @@
 <?php
+$model->form_data['data'] = date('d/m/Y');
 $model->validate_register_form();
-$encaminhamentos = $model->getEmpresas();
+$encaminhamentos = EmpresaDao::getEmpresas();
 ?>
 
 <h5>Realizar destinação</h5>
@@ -9,9 +10,9 @@ $encaminhamentos = $model->getEmpresas();
 <form method="POST" class="form-dados">
 
     <div class="form-group row">
-        <label class="col-2 col-form-label">Empresa</label>
+        <label class="col-2 col-form-label" for="cnpj">Empresa</label>
         <div class="col-10">
-            <select name="cnpj" class="form-control custom-select">
+            <select name="cnpj" id="cnpj" autofocus class="form-control custom-select">
                 <?php foreach ($encaminhamentos as $e): ?>
                     <option value="<?php echo $e->getCnpj(); ?>"><?php echo $e->getRazao(); ?></option>
                 <?php endforeach; ?>
@@ -27,16 +28,19 @@ $encaminhamentos = $model->getEmpresas();
     </div>
 
     <div class="form-group row">
-        <label class="col-2 col-form-label">Data</label>
+        <label class="col-2 col-form-label" for="data">Data</label>
         <div class="col-10">
-            <input type="date" name="data" value="<?php echo check_array($model->form_data, 'data'); ?>" class="form-control"/>
+            <input type="date" name="data" id="data"
+                   value="<?php echo check_array($model->form_data, 'data'); ?>" class="form-control"/>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-2 col-form-label">Descrição</label>
+        <label class="col-2 col-form-label" for="descricao">Descrição</label>
         <div class="col-10">
-            <textarea name="descricao" class="form-control"><?php echo check_array($model->form_data, 'descricao'); ?></textarea>
+            <textarea name="descricao" id="descricao" class="form-control">
+                <?php echo check_array($model->form_data, 'descricao'); ?>
+            </textarea>
         </div>
     </div>
 

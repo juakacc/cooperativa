@@ -1,5 +1,5 @@
 <?php
-$encaminhamentos = $model->getEncaminhamentos($data);
+$encaminhamentos = EmpresaDao::getEncaminhamentosPorData($data);
 ?>
 
 <div class="row">
@@ -19,9 +19,8 @@ $encaminhamentos = $model->getEncaminhamentos($data);
             <th>Data</th><th>Descrição</th><th>Empresa</th>
         </tr>
 
-        <?php foreach ($encaminhamentos as $e):
-                $empresa = $model->getEmpresaByCnpj($e->getCnpj());
-        ?>
+        <?php foreach ($encaminhamentos as $e): ?>
+            <?php $empresa = EmpresaDao::getEmpresaByCnpj($e->getCnpj()); ?>
             <tr>
                 <td><?php echo mostrar_data($e->getData()); ?></td>
                 <td><?php echo $e->getDescricao(); ?></td>

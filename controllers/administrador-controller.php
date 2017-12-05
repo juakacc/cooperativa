@@ -31,7 +31,6 @@ class AdministradorController extends MainController {
      * @param string $goto_url
      */
     public function logout() {
-        echo 'Saindo...';
         session_destroy();
         $goto_url = (isset($_SESSION['goto_url'])) ? $_SESSION['goto_url'] : HOME;
         header('Location: '. $goto_url);

@@ -1,5 +1,5 @@
 <?php
-$doadores = $model->getDoadores();
+$doadores = DoadorDao::getDoadores();
 ?>
 
 <div class="row">
@@ -12,40 +12,54 @@ $doadores = $model->getDoadores();
     </div>
 </div>
 
+    <!-- No caso de remoção -->
+<?php if (isset($_SESSION['removido'])): ?>
+    <?php unset($_SESSION['removido']); ?>
+    <div class="row">
+        <div class="col">
+            <p>Remoção efetuada com sucesso!</p>
+        </div>
+    </div>
+<?php endif; ?>
+
 <?php if (count($doadores) > 0): ?>
 
-    <table class="table table-bordered">
-        <tr>
-            <th>Nome</th><th>Doações</th>
-        </tr>
+    <?php if (!$this->logado): ?>
 
-        <?php foreach($doadores as $d): ?>
-            <?php $count = $model->getCountDoacoes($d->getCpf()); ?>
+        <table class="table table-bordered">
             <tr>
-                <td><?php echo $d->getNome(); ?></td>
-                <td><?php echo $count; ?></td>
+                <th>Nome</th><th>Doações</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
 
-    <table class="table table-bordered">
-        <tr>
-            <th>CPF</th><th>Nome</th><th>Opções</th>
-        </tr>
+            <?php foreach($doadores as $d): ?>
+                <?php $count = DoadorDao::getCountDoacoesPorCpf($d->getCpf()); ?>
+                <tr>
+                    <td><?php echo $d->getNome(); ?></td>
+                    <td><?php echo $count; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php else: ?>
 
-        <?php foreach($doadores as $d): ?>
+        <table class="table table-bordered">
             <tr>
-                <td><?php echo $d->getCPF(); ?></td>
-                <td><?php echo $d->getNome(); ?></td>
-                <td>
-                    <ul>
-                    <li><a href="">Editar</a></li>
-                    <li><a href="">Remover</a></li>
-                    </ul>
-                </td>
+                <th>CPF</th><th>Nome</th><th>Opções</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
+
+            <?php foreach($doadores as $d): ?>
+                <tr>
+                    <td><?php echo mostrar_cpf($d->getCPF()); ?></td>
+                    <td><?php echo $d->getNome(); ?></td>
+                    <td>
+                        <ul>
+                        <li><a href="<?php echo HOME.'/editar/doador/' . $d->getCpf(); ?>">Editar</a></li>
+                        <li><a href="<?php echo HOME.'/remover/index/doador/' . $d->getCpf(); ?>">Remover</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
 
     <?php else: ?>
 

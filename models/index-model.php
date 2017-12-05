@@ -23,10 +23,12 @@ class IndexModel extends MainModel {
         }
         if (isset($this->form_data['data']) and !validar_data($this->form_data['data'])) {
             $this->form_msg['data'] = 'Informe uma data válida...';
+            echo 'Data inválidaaaa';
+
         }
 
         if (empty($this->form_msg) and isset($this->form_data['data'])){
-            $this->data = $this->form_data['data'];
+            $this->data = transformarParaBanco($this->form_data['data']);
         } else {
             $this->data = $data;
         }
@@ -38,7 +40,7 @@ class IndexModel extends MainModel {
      */
     private function getResultsByData($data) {
         $resultado = array();
-        // especificar cada tipo
+
         $sql = "SELECT * FROM doacao WHERE data = '{$data}'";
         if ($result = $this->mysqli->query($sql)) {
             $resultado['doacao'] = $result->num_rows;
@@ -52,12 +54,6 @@ class IndexModel extends MainModel {
         $sql = "SELECT * FROM colaboracao WHERE data = '{$data}'";
         if ($result = $this->mysqli->query($sql)) {
             $resultado['colaboracao'] = $result->num_rows;
-        }
-        
-        // Material, onde fica?
-        $sql = "SELECT * FROM diaria WHERE data = '{$data}'";
-        if ($result = $this->mysqli->query($sql)) {
-            //$resultado['material'] = $result->fetch_asso()['quantidade'];
         }
         return $resultado;
     }

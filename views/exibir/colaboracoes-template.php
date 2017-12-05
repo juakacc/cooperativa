@@ -1,5 +1,5 @@
 <?php
-$colaboracoes = $model->getColaboracoes($data);
+$colaboracoes = ColaboradorDao::getColaboracoesPorData($data);
 ?>
 
 <div class="row">
@@ -14,14 +14,12 @@ $colaboracoes = $model->getColaboracoes($data);
 
 <?php if (!empty($colaboracoes)): ?>
 
-    <h5>Colaborações do dia: <?php echo mostrar_data($data); ?></h5>
-
     <table class="table table-bordered">
         <tr>
             <th>Data</th><th>Função</th><th>Descrição</th><th>Doador</th>
         </tr>
         <?php foreach ($colaboracoes as $c):
-                $colaborador = $model->getColaboradorByCpf($c->getCpf());
+                $colaborador = ColaboradorDao::getColaboradorPorCpf($c->getCpf());
         ?>
 
             <tr>

@@ -1,5 +1,5 @@
 <?php
-$colaboradores = $model->getColaboradores();
+$colaboradores = ColaboradorDao::getColaboradores();
 ?>
 
 <div class="row">
@@ -12,37 +12,53 @@ $colaboradores = $model->getColaboradores();
     </div>
 </div>
 
+<!-- No caso de remoção -->
+<?php if (isset($_SESSION['removido'])): ?>
+    <?php unset($_SESSION['removido']); ?>
+    <div class="row">
+        <div class="col">
+            <p>Remoção efetuada com sucesso!</p>
+        </div>
+    </div>
+<?php endif; ?>
+
 <?php if (count($colaboradores) > 0): ?>
-    <table class="table table-bordered">
-        <tr>
-            <th>Nome</th><th>Colaborações</th>
-        </tr>
 
-        <?php foreach($colaboradores as $c): ?>
-           <?php $count = $model->getCountColaboracoes($c->getCpf()); ?>
+    <?php if (!$this->logado): ?>
+
+        <table class="table table-bordered">
             <tr>
-                <td><?php echo $c->getNome(); ?></td>
-                <td><?php echo $count; ?></td>
+                <th>Nome</th><th>Colaborações</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
 
-    <table class="table table-bordered">
-        <tr>
-            <th>CPF</th><th>Nome</th><th>Opções</th>
-        </tr>
+            <?php foreach($colaboradores as $c): ?>
+               <?php $count = ColaboradorDao::getCountColaboracoesPorCpf($c->getCpf()); ?>
+                <tr>
+                    <td><?php echo $c->getNome(); ?></td>
+                    <td><?php echo $count; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php else: ?>
 
-        <?php foreach($colaboradores as $c): ?>
+        <table class="table table-bordered">
             <tr>
-                <td><?php echo $c->getCPF(); ?></td>
-                <td><?php echo $c->getNome(); ?></td>
-                <td>
-                    <a href="">Editar</a>
-                    <a href="">Remover</a>
-                </td>
+                <th>CPF</th><th>Nome</th><th>Opções</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
+
+            <?php foreach($colaboradores as $c): ?>
+                <tr>
+                    <td><?php echo mostrar_cpf($c->getCpf()); ?></td>
+                    <td><?php echo $c->getNome(); ?></td>
+                    <td>
+                        <a href="<?php echo HOME.'/editar/colaborador/' . $c->getCpf(); ?>">Editar</a>
+                        <a href="<?php echo HOME.'/remover/index/colaborador/' . $c->getCpf(); ?>">Remover</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+
 <?php else: ?>
 
     <div class="row">

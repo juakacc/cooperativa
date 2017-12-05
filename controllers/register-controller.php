@@ -17,7 +17,7 @@ class RegisterController extends MainController {
             header('Location: ' . HOME . '/administrador/logout');
             return;
         }
-        $model = $this->load_model('adm/register-colaborador-model');
+        $model = $this->load_model('adm/register/pessoal/register-colaborador-model');
 
         include ABSPATH . '/views/_includes/header.php';
         include ABSPATH . '/views/_includes/header-login.php';
@@ -36,7 +36,7 @@ class RegisterController extends MainController {
             header('Location: ' . HOME . '/administrador/logout');
             return;
         }
-        $model = $this->load_model('adm/register-doador-model');
+        $model = $this->load_model('adm/register/pessoal/register-doador-model');
 
         include ABSPATH . '/views/_includes/header.php';
         include ABSPATH . '/views/_includes/header-login.php';
@@ -55,7 +55,7 @@ class RegisterController extends MainController {
             header('Location: ' . HOME . '/administrador/logout');
             return;
         }
-        $model = $this->load_model('adm/register-empresa-model');
+        $model = $this->load_model('adm/register/pessoal/register-empresa-model');
 
         include ABSPATH . '/views/_includes/header.php';
         include ABSPATH . '/views/_includes/header-login.php';
@@ -74,7 +74,7 @@ class RegisterController extends MainController {
             header('Location: ' . HOME . '/administrador/logout');
             return;
         }
-        $model = $this->load_model('adm/register-colaboracao-model');
+        $model = $this->load_model('adm/register/register-colaboracao-model');
 
         include ABSPATH . '/views/_includes/header.php';
         include ABSPATH . '/views/_includes/header-login.php';
@@ -93,7 +93,7 @@ class RegisterController extends MainController {
             header('Location: ' . HOME . '/administrador/logout');
             return;
         }
-        $model = $this->load_model('adm/register-doacao-model');
+        $model = $this->load_model('adm/register/register-doacao-model');
         
         include ABSPATH . '/views/_includes/header.php';
         include ABSPATH . '/views/_includes/header-login.php';
@@ -112,7 +112,7 @@ class RegisterController extends MainController {
             header('Location: ' . HOME . '/administrador/logout');
             return;
         }
-        $model = $this->load_model('adm/register-encami-model');
+        $model = $this->load_model('adm/register/register-encami-model');
         
         include ABSPATH . '/views/_includes/header.php';
         include ABSPATH . '/views/_includes/header-login.php';
@@ -131,7 +131,7 @@ class RegisterController extends MainController {
             header('Location: ' . HOME . '/administrador/logout');
             return;
         }
-        $model = $this->load_model('adm/register-diaria-model');
+        $model = $this->load_model('adm/register/register-diaria-model');
 
         include ABSPATH . '/views/_includes/header.php';
         include ABSPATH . '/views/_includes/header-login.php';
@@ -153,12 +153,7 @@ class RegisterController extends MainController {
         }
 
         include ABSPATH . '/views/_includes/header.php';
-
-        if ($this->logado) {
-            include ABSPATH . '/views/_includes/header-login.php';
-        } else {
-            include ABSPATH . '/views/_includes/header-normal.php';
-        }
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/observacao-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }

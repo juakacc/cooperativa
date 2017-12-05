@@ -1,6 +1,6 @@
 <?php
 $model->validate_form();
-$observacoes = $model->getObservacoesNaoVistas();
+$observacoes = ColaboradorDao::getObservacoesNaoVistas();
 ?>
 
 <div class="row">
@@ -25,7 +25,7 @@ $observacoes = $model->getObservacoesNaoVistas();
             </tr>
 
             <?php foreach ($observacoes as $o):
-                $c = $model->getColaboradorByCpf($o->getCpf());
+                $c = ColaboradorDao::getColaboradorPorCpf($o->getCpf());
                 ?>
                 <tr>
                     <td><input type="checkbox" name="<?php  echo 'check-'.$o->getId(); ?>" class="form-check"/></td>
@@ -68,9 +68,9 @@ $observacoes = $model->getObservacoesNaoVistas();
                     Gerenciar
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="">Colaboradores</a>
-                    <a class="dropdown-item" href="">Doadores</a>
-                    <a class="dropdown-item" href="">Empresas</a>
+                    <a href="<?php echo HOME; ?>/exibir/colaboradores" class="dropdown-item">Colaboradores</a>
+                    <a href="<?php echo HOME; ?>/exibir/doadores" class="dropdown-item">Doadores</a>
+                    <a href="<?php echo HOME; ?>/exibir/empresas" class="dropdown-item">Empresas</a>
                 </div>
             </li><!-- Fim do dropdown gerenciar -->
         </ul>

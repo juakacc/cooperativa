@@ -7,7 +7,7 @@ class MainController {
     
     public $parametros;
     public $logado = false;
-    public $tipo;
+    public $tipo;   //Tipo do login: administrador, colaborador, doador...
 
     /**
      * MainController constructor.
@@ -15,8 +15,10 @@ class MainController {
      */
     public function __construct($parametros = array()) {
         $this->parametros = $parametros;
-        if (isset($_SESSION['logado']) and $_SESSION['logado'])
+
+        if (isset($_SESSION['logado']) and $_SESSION['logado']) { // Verifica se está logado, por default é false
             $this->logado = true;
+        }
         $this->tipo = check_array($_SESSION, 'tipo');
     }
 
@@ -40,5 +42,13 @@ class MainController {
             }
         }
         return;
+    }
+
+    public function incluir_cabecalho() {
+        if ($this->logado) {
+            return ABSPATH . '/views/_includes/header-login.php';
+        } else {
+            return ABSPATH . '/views/_includes/header-normal.php';
+        }
     }
 }

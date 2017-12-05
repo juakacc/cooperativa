@@ -14,29 +14,28 @@ $model->validarLogin();
         <form method="POST">
 
             <div class="form-group row">
-                <label class="col-2 col-form-label">Forma</label>
+                <label class="col-2 col-form-label" for="forma">Forma</label>
                 <div class="col-10">
-                    <select name="tipo" class="form-control custom-select">
+                    <select name="tipo" id="forma" autofocus class="form-control custom-select">
                         <option value="administrador">Admin</option>
                         <option value="colaborador">Colaborador</option>
                         <option value="doador">Doador</option>
-                        <option value="empresa">Empresa</option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-2 col-form-label">CPF/CNPJ</label>
+                <label class="col-2 col-form-label" for="cpf">CPF</label>
                 <div class="col-10">
-                    <input type="text" placeholder="CPF/CNPJ" name="ide"
+                    <input type="text" placeholder="CPF" name="ide" id="cpf"
                            value="<?php echo check_array($model->form_data, 'ide'); ?>"  class="form-control"/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-2 col-form-label">Senha</label>
+                <label class="col-2 col-form-label" for="senha">Senha</label>
                 <div class="col-10">
-                    <input type="password" placeholder="Senha" name="senha" class="form-control"/>
+                    <input type="password" placeholder="Senha" name="senha" id="senha" class="form-control"/>
                 </div>
             </div>
 

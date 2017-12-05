@@ -3,7 +3,7 @@
 class Cooperativa {
     
     private $controller;
-    private $metodh;
+    private $method;
     private $parametros;
     
     public function __construct() {
@@ -18,7 +18,7 @@ class Cooperativa {
         }
         
         if (!file_exists(ABSPATH . '/controllers/' . $this->controller . '.php')) {
-            echo 'Página inexistente...';
+            header('Location: '. HOME);
             return;
         }
         
@@ -26,21 +26,22 @@ class Cooperativa {
         $this->controller = preg_replace('/[^a-zA-Z]/i', '', $this->controller);
         
         if (!class_exists($this->controller)) {
-            echo 'Página not found';
+            header('Location: '. HOME);
             return;
         }
+
         // instancio a classe
         $this->controller = new $this->controller($this->parametros);
-        $this->metodh = preg_replace('/[^a-zA-Z]/i', '', $this->metodh);
+        $this->method = preg_replace('/[^a-zA-Z]/i', '', $this->method);
         
         // if o método existir, chamo ele
-        if (method_exists($this->controller, $this->metodh)) {
-            $this->controller->{$this->metodh}();
+        if (method_exists($this->controller, $this->method)) {
+            $this->controller->{$this->method}();
+            return;
+        } else {    //Se não, chamo o index
+            $this->controller->index();
             return;
         }
-        //Se não, chamo o index
-        $this->controller->index();
-        return;
     }
     
     private function get_url_data() {
@@ -53,7 +54,7 @@ class Cooperativa {
             $this->controller = check_array($path, 0);
             $this->controller .= '-controller';
             
-            $this->metodh = check_array($path, 1);
+            $this->method = check_array($path, 1);
             
             if (check_array($path, 2)) {
                 unset($path[0]);

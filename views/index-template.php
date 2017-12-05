@@ -6,8 +6,8 @@ $result = $model->get_dados();
     <div class="col-8">
         <form method="POST" class="form-inline">
             <div class="form-group">
-                <label class="col-form-label">Escolha um dia </label>
-                <input type="date" name="data"
+                <label class="col-form-label" for="data">Escolha um dia </label>
+                <input type="text" name="data" id="data" placeholder="dd/mm/aaaa"
                        value="<?php echo check_array($model->form_data, 'data'); ?>" class="form-control"/>
                 <button type="submit" class="btn btn-primary">Pesquisar</button>
             </div>

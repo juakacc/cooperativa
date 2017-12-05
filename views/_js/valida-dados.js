@@ -5,7 +5,7 @@ $(document).ready(function() {
                 required:true
             },
             numero:{
-                required:true, digits: true
+                digits: true
             },
             bairro:{
                 required:true
@@ -36,6 +36,9 @@ $(document).ready(function() {
             },
             razao:{
                 required:true
+            },
+            data:{
+                required:true
             }
         },
         messages:{
@@ -43,7 +46,6 @@ $(document).ready(function() {
                 required: "Rua é obrigatória"
             },
             numero:{
-                required: "Esse campo é obrigatório",
                 digits: "Apenas dígitos"
             },
             bairro:{
@@ -53,20 +55,33 @@ $(document).ready(function() {
                 required: "Cidade é obrigatória"
             },
             descricao:{
-                required: "Esse campo é obrigatório",
+                required: "Descrição é obrigatório",
                 minlength: "Descrição insuficiente"
             },
 
             funcao:{
-                required: "Esse campo é obrigatório",
+                required: "Função é obrigatória",
                 minlength: "Tamanho mínimo é 4"
             },
 
             cnpj:{
                 required: "O CNPJ é obrigatório"
             },
+            cpf:{
+                required: "O CPF é obrigatório"
+            },
+            nome:{
+                required: "Nome é obrigatório"
+            },
             razao:{
                 required: "A razão é obrigatória"
+            },
+            senha:{
+                required: "Senha é obrigatório",
+                minlength: "Tamanho mínimo é 6"
+            },
+            data:{
+                required: "Data é obrigatória"
             }
         }
     });

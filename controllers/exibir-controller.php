@@ -13,13 +13,15 @@ class ExibirController extends MainController {
         $data = date('Y-m-d');
         if (isset($this->parametros[0])) {
             // validar data
-            $data = $this->parametros[0];
+            if (validar_data($this->parametros[0])) {
+                $data = $this->parametros[0];
+            }
         }
         $_SESSION['goto_url'] = HOME;
-        $model = $this->load_model('exibir-model');
-        // inclui templates...
+        $model = new MainModel($this);
+
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-normal.php';
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/exibir/doacoes-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
@@ -31,13 +33,15 @@ class ExibirController extends MainController {
         $data = date('Y-m-d');
         if (isset($this->parametros[0])) {
             // validar data
-            $data = $this->parametros[0];
+            if (validar_data($this->parametros[0])) {
+                $data = $this->parametros[0];
+            }
         }
         $_SESSION['goto_url'] = HOME;
-        $model = $this->load_model('exibir-model');
-        // inclui templates...
+        $model = new MainModel($this);
+
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-normal.php';
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/exibir/encaminhamentos-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
@@ -49,13 +53,15 @@ class ExibirController extends MainController {
         $data = date('Y-m-d');
         if (isset($this->parametros[0])) {
             // validar data
-            $data = $this->parametros[0];
+            if (validar_data($this->parametros[0])) {
+                $data = $this->parametros[0];
+            }
         }
         $_SESSION['goto_url'] = HOME;
-        $model = $this->load_model('exibir-model');
-        // inclui templates...
+        $model = new MainModel($this);
+
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-normal.php';
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/exibir/colaboracoes-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
@@ -65,10 +71,10 @@ class ExibirController extends MainController {
      */
     public function empresas() {
 
-        $model = $this->load_model('exibir-model');
+        $model = new MainModel($this);
 
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-normal.php';
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/exibir/empresas-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
@@ -78,10 +84,10 @@ class ExibirController extends MainController {
      */
     public function doadores() {
 
-        $model = $this->load_model('exibir-model');
+        $model = new MainModel($this);
 
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-normal.php';
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/exibir/doadores-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
@@ -91,10 +97,10 @@ class ExibirController extends MainController {
      */
     public function colaboradores() {
 
-        $model = $this->load_model('exibir-model');
+        $model = new MainModel($this);
 
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-normal.php';
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/exibir/colaboradores-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
@@ -110,10 +116,10 @@ class ExibirController extends MainController {
             return;
         }
 
-        $model = $this->load_model('exibir-model');
+        $model = new MainModel($this);
 
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-login.php';
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/exibir/observacao-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }

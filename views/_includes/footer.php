@@ -20,5 +20,7 @@
     <script src="<?php echo HOME; ?>/views/_js/jquery.validate.js"></script>
     <script src="<?php echo HOME; ?>/views/_js/valida-dados.js"></script>
 
+    <script src="<?php echo HOME; ?>/views/_js/jquery.masked-1.4.1.js"></script>
+    <script src="<?php echo HOME; ?>/views/_js/mascara-dados.js"></script>
 </body>
 </html>

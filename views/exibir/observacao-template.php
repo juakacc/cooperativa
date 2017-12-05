@@ -1,10 +1,10 @@
 <?php
-    $o = $model->getObservacaoById($this->parametros[0]);
+    $o = ColaboradorDao::getObservacaoPorId($this->parametros[0]);
     if (!$o) {
         header('Location: ' . $_SESSION['goto_url']);
         return;
     }
-    $c = $model->getColaboradorByCpf($o->getCpf());
+    $c = ColaboradorDao::getColaboradorPorCpf($o->getCpf());
 ?>
 
 <div class="row">

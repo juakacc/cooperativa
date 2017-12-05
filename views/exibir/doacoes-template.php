@@ -1,5 +1,5 @@
 <?php
-$doacoes = $model->getDoacoes($data);
+$doacoes = DoadorDao::getDoacoesPorData($data);
 ?>
 
 <div class="row">
@@ -14,21 +14,21 @@ $doacoes = $model->getDoacoes($data);
 
 <?php if (!empty($doacoes)): ?>
 
-<table class="table table-bordered">
-        <tr>
-            <th>Data</th><th>Descrição</th><th>Doador</th>
-        </tr>
-        <?php foreach ($doacoes as $d):
-            $doador = $model->getDoadorByCpf($d->getCpf());
-            ?>
-
+    <table class="table table-bordered">
             <tr>
-                <td><?php echo mostrar_data($d->getData()); ?></td>
-                <td><?php echo $d->getDescricao(); ?></td>
-                <td><?php echo $doador->getNome(); ?></td>
+                <th>Data</th><th>Descrição</th><th>Doador</th>
             </tr>
-        <?php endforeach; ?>
-</table>
+            <?php foreach ($doacoes as $d):
+                $doador = DoadorDao::getDoadorPorCpf($d->getCpf());
+                ?>
+
+                <tr>
+                    <td><?php echo mostrar_data($d->getData()); ?></td>
+                    <td><?php echo $d->getDescricao(); ?></td>
+                    <td><?php echo $doador->getNome(); ?></td>
+                </tr>
+            <?php endforeach; ?>
+    </table>
 
 <?php else: ?>
 

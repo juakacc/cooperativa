@@ -1,23 +1,18 @@
 <?php
-$doacoes = $model->getDoacoesByCpf($_SESSION['id']); // Pegar da sessão
+$doacoes = DoadorDao::getDoacoesPorCpf($_SESSION['id']); // Pegar da sessão
 ?>
 
-<h3>Doações realizadas</h3>
+<h5>Doações realizadas</h5>
 
-<table class="table">
-    <thead>
+<table class="table table-bordered">
     <tr>
-        <th>Data</th>
-        <th>Descrição</th>
+        <th>Data</th><th>Descrição</th>
     </tr>
-    </thead>
 
-    <tbody>
     <?php foreach ($doacoes as $e): ?>
         <tr>
-            <td><?php echo $e->getData(); ?></td>
+            <td><?php echo mostrar_data($e->getData()); ?></td>
             <td><?php echo $e->getDescricao(); ?></td>
         </tr>
     <?php endforeach; ?>
-    </tbody>
 </table>

@@ -28,7 +28,7 @@ class MainModel {
      * MainModel constructor.
      * @param $controller
      */
-    public function __construct($controller) {
+    function __construct($controller) {
         $this->mysqli = new mysqli(DB_LOCAL, DB_USER,
             DB_PASS, DB_BASE);
         if (mysqli_connect_errno()) {
@@ -40,51 +40,16 @@ class MainModel {
     }
 
     /**
-     * Adiciona um endereço e retorna o ID do mesmo
-     * @param Endereco $e
-     * @return int ID com o qual o endereço ficou
-     */
-    protected function addEndereco(Endereco $e) {
-        $sql = "INSERT INTO endereco (rua, numero, bairro, cidade, uf) 
-                VALUES (?,?,?,?,?)";
-
-        if ($stmt = $this->mysqli->prepare($sql)) {
-            $stmt->bind_param("sisss", $e->getRua(), $e->getNumero(),
-                $e->getBairro(), $e->getCidade(), $e->getUf());
-
-            if ($stmt->execute()) {
-                $stmt->close();
-                $sql = "SELECT id FROM endereco ORDER BY id DESC LIMIT 1";
-
-                if ($stmt = $this->mysqli->prepare($sql)) {
-                    $stmt->execute();
-
-                    $stmt->bind_result($id);
-                    if ($stmt->fetch()) {
-                        return $id;
-                    }
-                }
-            } else {
-                echo $stmt->error;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Por enquando vou deixar só o nome mesmo
+     * Por enquanto vou deixar só o nome mesmo
      * @param $tipo
      * @param $ide
      * @return Empresa|Pessoa
      */
     public function getUserByIde($tipo, $ide) {
-        $sql = "SELECT ";
-        $sql .= ($tipo == 'empresa') ? 'razao' : 'nome';
-        $sql .= " FROM " . $tipo . " WHERE ";
-        $sql .= ($tipo == 'empresa') ? 'cnpj' : 'cpf';
-        $sql .= " = ?";
+        $mysqli = getConexao();
+        $sql = "SELECT nome FROM " . $tipo . " WHERE cpf = ?";
 
-        if ($stmt = $this->mysqli->prepare($sql)) {
+        if ($stmt = $mysqli->prepare($sql)) {
             $stmt->bind_param("s", $ide);
             $stmt->execute();
             $stmt->bind_result($nome);
@@ -95,9 +60,30 @@ class MainModel {
                 } else {
                     $a = new Pessoa($ide, $nome);
                 }
+                $this->fechar($stmt, $mysqli);
                 return $a;
             }
         }
+    }
+
+    private function getQuery($tipo) {
+        if ($tipo == 'empresa') {
+            return "SELECT cnpj, razao, telefone";
+        }
+    }
+
+    function validar_end($form_msg, $form_data) {
+        if (strlen($form_data['rua']) == 0) {
+            $form_msg['rua'] = 'Rua inválida';
+        }
+        if (!is_numeric($form_data['numero'])) {
+            $form_msg['numero'] = 'Número inválido...';
+            $form_data['numero'] = '';
+        }
+        if (strlen($form_data['bairro']) == 0) {
+            $form_msg['bairro'] = 'Rua inválida';
+        }
+        return $form_msg;
     }
 
     /**

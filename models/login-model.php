@@ -22,7 +22,7 @@ class LoginModel extends MainModel {
             }
 
             if (check_array($this->form_data,'ide') == '') {
-                $this->form_msg[] = 'Digite o CPF/CNPJ...';
+                $this->form_msg[] = 'Digite o CPF...';
                 return;
             }
             $pessoa = $this->getPessoaByCpf($this->form_data['tipo'], $this->form_data['ide']);
@@ -40,7 +40,7 @@ class LoginModel extends MainModel {
             $_SESSION['logado'] = true;
             $_SESSION['tipo'] = $this->form_data['tipo'];
             $_SESSION['id'] = $pessoa->getCpf();
-            header('Location: '.HOME.'/' . $this->form_data['tipo']);
+            header('Location: '.HOME. '/' . $this->form_data['tipo']);
         }
     }
 
@@ -51,13 +51,7 @@ class LoginModel extends MainModel {
      * @return null|Pessoa
      */
     private function getPessoaByCpf($tipo, $ide) {
-        $sql = "SELECT senha FROM ". $tipo . " WHERE ";
-        if ($tipo == 'empresa') {
-            $sql .= "cnpj";
-        } else {
-            $sql .= "cpf";
-        }
-        $sql .= " = ?";
+        $sql = "SELECT senha FROM ". $tipo . " WHERE cpf = ?";
 
         if ($stmt = $this->mysqli->prepare($sql)) {
             $stmt->bind_param("s", $ide);
@@ -67,6 +61,8 @@ class LoginModel extends MainModel {
             if ($stmt->fetch()) {
                 $pessoa = new Pessoa($ide);
                 $pessoa->setSenha($senha);
+
+                $this->fechar($stmt);
                 return $pessoa;
             }
         }

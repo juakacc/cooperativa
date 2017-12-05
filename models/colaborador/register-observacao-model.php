@@ -24,10 +24,13 @@ class RegisterObservacaoModel extends MainModel {
                 if ($value == '')
                     $this->form_msg['a'] = 'Por favor, preencha todos os campos...';
             }
-
-            if (!is_numeric($this->form_data['cpf'])) {
-                $this->form_msg[] = 'CPF apenas com números...';
-                $this->form_data['cpf'] = '';
+            if (isset($this->form_data['cpf'])) {
+                if (!is_numeric($this->form_data['cpf'])) {
+                    $this->form_msg[] = 'CPF apenas com números...';
+                    $this->form_data['cpf'] = '';
+                }
+            } else {
+                $this->form_data['cpf'] = '00000000000';
             }
 
             if (!is_numeric($this->form_data['numero'])) {
@@ -39,10 +42,11 @@ class RegisterObservacaoModel extends MainModel {
                 $endereco = new Endereco($this->form_data['rua'], $this->form_data['numero'],
                     $this->form_data['bairro'], $this->form_data['cidade'], $this->form_data['uf']);
 
-                $observacao = new Observacao($this->form_data['descricao'], date('Y-m-d'), $endereco);
+                $observacao = new Observacao($this->form_data['descricao'],
+                    date('Y-m-d'), $endereco, $this->form_data['cpf']);
 
-                $colaborador = new Colaborador($this->form_data['cpf']);
-                $colaborador->fazerObservacao($observacao);
+                ColaboradorDao::adicionarObservacao($observacao);
+
                 header('Location: ' . $_SESSION['goto_url']);
                 return;
             }

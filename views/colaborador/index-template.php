@@ -1,53 +1,55 @@
 <?php
-$colaboracoes = $model->getColaboracoesByCpf($_SESSION['id']);
-$observacoes = $model->getObservacoesByCpf($_SESSION['id']);
-
+$colaboracoes = ColaboradorDao::getColaboracoesPorCpf($_SESSION['id']);
+$observacoes = ColaboradorDao::getObservacoesPorCpf($_SESSION['id']);
 ?>
 
-<a href="<?php echo HOME; ?>/register/observacao">Realizar observação</a>
+<a href="<?php echo HOME; ?>/register/observacao" class="btn btn-success">Realizar observação</a>
 
-<h3>Colaborações efetuadas</h3>
+<h5>Colaborações efetuadas</h5>
 
-<table class="table">
-    <thead>
+<?php if (!empty($colaboracoes)): ?>
+    <table class="table table-bordered">
         <tr>
-            <th>Data</th>
-            <th>Função</th>
-            <th>Descrição</th>
+            <th>Data</th><th>Função</th><th>Descrição</th>
         </tr>
-    </thead>
-    <tbody>
+
         <?php foreach ($colaboracoes as $c): ?>
             <tr>
-                <td><?php echo $c->getData(); ?></td>
+                <td><?php echo mostrar_data($c->getData()); ?></td>
                 <td><?php echo $c->getFuncao(); ?></td>
                 <td><?php echo $c->getDescricao(); ?></td>
             </tr>
         <?php endforeach; ?>
-    </tbody>
-</table>
+    </table>
+<?php else: ?>
+    <div class="row justify-content-center">
+        <div class="col" align="center">
+            <p>Nenhuma colaboração efetuada</p>
+        </div>
+    </div>
+<?php endif; ?>
 
-<h3>Observações efetuadas</h3>
+<h5>Observações efetuadas</h5>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Data</th>
-        <th>Descrição</th>
-        <th>Local</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($observacoes as $c): ?>
+<?php if (!empty($observacoes)): ?>
+    <table class="table table-bordered">
         <tr>
-            <td><?php echo $c->getData(); ?></td>
-            <td><?php echo $c->getDescricao(); ?></td>
-            <td><?php echo $c->getLocal(); ?></td>
+            <th>Data</th><th>Descrição</th><th>Local</th>
         </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
 
-Colocar quantidade de faltas
+        <?php foreach ($observacoes as $c): ?>
+            <tr>
+                <td><?php echo mostrar_data($c->getData()); ?></td>
+                <td><?php echo $c->getDescricao(); ?></td>
+                <td><?php echo $c->getLocal(); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 
-<?php //include ABSPATH . '/views/observacao-template.php'; ?>
+<?php else: ?>
+    <div class="row justify-content-center">
+        <div class="col" align="center">
+            <p>Nenhuma observação efetuada</p>
+        </div>
+    </div>
+<?php endif; ?>

@@ -17,7 +17,7 @@ class IndexController extends MainController {
         $_SESSION['goto_url'] = HOME;
 
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-normal.php';
+        include $this->incluir_cabecalho();
         require_once ABSPATH . '/views/index-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
@@ -30,14 +30,16 @@ class IndexController extends MainController {
         
         $model = $this->load_model('login-model');
 
+        if ($this->logado) {    // Caso já esteja logado
+            header('Location: ' . HOME . '/' . $_SESSION['tipo']);
+        }
+
         $_SESSION['goto_url'] = HOME;
         
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-normal.php';
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/login-template.php';
         include ABSPATH . '/views/_includes/footer.php';
-
-        //$this->logado = true;
     }
 
     /**
@@ -45,8 +47,10 @@ class IndexController extends MainController {
      */
     public function sobre() {
 
+        $model = new MainModel($this);
+
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-normal.php';
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/sobre-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
@@ -56,8 +60,10 @@ class IndexController extends MainController {
      */
     public function visitenos() {
 
+        $model = new MainModel($this);
+
         include ABSPATH . '/views/_includes/header.php';
-        include ABSPATH . '/views/_includes/header-normal.php';
+        include $this->incluir_cabecalho();
         include ABSPATH . '/views/visite-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
