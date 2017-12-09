@@ -22,9 +22,7 @@ class IndexModel extends MainModel {
             }
         }
         if (isset($this->form_data['data']) and !validar_data($this->form_data['data'])) {
-            $this->form_msg['data'] = 'Informe uma data válida...';
-            echo 'Data inválidaaaa';
-
+            $this->form_msg['data'] = 'Informe uma data válida.';
         }
 
         if (empty($this->form_msg) and isset($this->form_data['data'])){

@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    var str = "Este campo é obrigatório";
+
     $(".form-dados").validate({
         rules:{
             rua:{
@@ -39,49 +42,57 @@ $(document).ready(function() {
             },
             data:{
                 required:true
+            },
+
+            ide:{
+                required:true
             }
         },
         messages:{
             rua:{
-                required: "Rua é obrigatória"
+                required: str
             },
             numero:{
                 digits: "Apenas dígitos"
             },
             bairro:{
-                required: "Bairro é obrigatório"
+                required: str
             },
             cidade:{
-                required: "Cidade é obrigatória"
+                required: str
             },
             descricao:{
-                required: "Descrição é obrigatório",
+                required: str,
                 minlength: "Descrição insuficiente"
             },
 
             funcao:{
-                required: "Função é obrigatória",
+                required: str,
                 minlength: "Tamanho mínimo é 4"
             },
 
             cnpj:{
-                required: "O CNPJ é obrigatório"
+                required: str
             },
             cpf:{
-                required: "O CPF é obrigatório"
+                required: str
             },
             nome:{
-                required: "Nome é obrigatório"
+                required: str
             },
             razao:{
-                required: "A razão é obrigatória"
+                required: str
             },
             senha:{
-                required: "Senha é obrigatório",
+                required: str,
                 minlength: "Tamanho mínimo é 6"
             },
             data:{
-                required: "Data é obrigatória"
+                required: str
+            },
+
+            ide:{
+                required: str
             }
         }
     });

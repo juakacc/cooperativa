@@ -14,18 +14,12 @@ class RegisterDiariaModel extends MainModel {
         $this->form_msg = array();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' and !empty($_POST)) {
-            if (isset($_POST['cancelar'])) {
-                header('Location: '. $_SESSION['goto_url']);
-                return;
-            }
 
             foreach ($_POST as $key => $value) {
                 $this->form_data[$key] = $value;
             }
 
-            if (!validar_data($this->form_data['data'])) {
-                $this->form_msg[] = "Digite uma data válida...";
-            }
+            $this->form_msg = validar_dados($this->form_data);
 
             if (empty($this->form_msg)) {
                 $this->form_data['data'] = transformarParaBanco($this->form_data['data']);
@@ -33,7 +27,8 @@ class RegisterDiariaModel extends MainModel {
                 ColaboradorDao::registrarPresenca($this->form_data['data'],
                     $this->form_data['cpf'], $this->mysqli);
 
-                header('Location: ' . HOME . '/adm');
+                $_SESSION['msg'] = 'Diária registrada com sucesso';
+                header('Location: ' . HOME . '/administrador');
             }
         } else {
             $this->form_data['data'] = date('d/m/Y');

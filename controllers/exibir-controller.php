@@ -72,6 +72,9 @@ class ExibirController extends MainController {
     public function empresas() {
 
         $model = new MainModel($this);
+        if ($this->logado) {
+            $_SESSION['goto_url'] = HOME . '/exibir/empresas';
+        }
 
         include ABSPATH . '/views/_includes/header.php';
         include $this->incluir_cabecalho();
@@ -85,6 +88,9 @@ class ExibirController extends MainController {
     public function doadores() {
 
         $model = new MainModel($this);
+        if ($this->logado) {
+            $_SESSION['goto_url'] = HOME . '/exibir/doadores';
+        }
 
         include ABSPATH . '/views/_includes/header.php';
         include $this->incluir_cabecalho();
@@ -98,6 +104,9 @@ class ExibirController extends MainController {
     public function colaboradores() {
 
         $model = new MainModel($this);
+        if ($this->logado) {
+            $_SESSION['goto_url'] = HOME . '/exibir/colaboradores';
+        }
 
         include ABSPATH . '/views/_includes/header.php';
         include $this->incluir_cabecalho();
@@ -110,6 +119,10 @@ class ExibirController extends MainController {
      */
     public function observacao() {
         // Esse tem que ter permissão de ADMIN
+        if(!$this->logado) {
+            header('Location: ' . HOME);
+            return;
+        }
 
         if (!isset($this->parametros[0]) or !is_numeric($this->parametros[0])) {
             header('Location: ' . $_SESSION['goto_url']);

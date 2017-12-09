@@ -35,4 +35,5 @@
             </select>
         </div>
     </div>
+    <input type="hidden" name="id_endereco" value="<?php echo check_array($model->form_data, 'id_endereco'); ?>" />
 </div>

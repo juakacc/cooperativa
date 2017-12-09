@@ -4,7 +4,8 @@
  * Classe que representa um Endereco
  */
 class Endereco {
-    
+
+    private $id;
     private $rua;
     private $numero;
     private $bairro;
@@ -73,5 +74,13 @@ class Endereco {
      */
     function getUf() {
         return $this->uf;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function getId() {
+        return $this->id;
     }
 }

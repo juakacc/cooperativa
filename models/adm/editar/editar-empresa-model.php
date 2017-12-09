@@ -16,31 +16,25 @@ class EditarEmpresaModel extends MainModel {
             $this->form_data = array();
             $this->form_msg = array();
 
-            if (isset($_POST['cancelar'])) {
-                header('Location: '. $_SESSION['goto_url']);
-                return;
-            }
-
             foreach($_POST as $key => $value) {
                 $this->form_data[$key] = $value;
             }
 
-            if (!is_numeric($this->form_data['cnpj'])) {
-                $this->form_msg[] = 'Digite um CNPJ apenas com números';
-                $this->form_data['cnpj'] = '';
-            }
+            $this->form_data['cnpj'] = retirar_mask($this->form_data['cnpj']);
+            $this->form_data['telefone'] = retirar_mask($this->form_data['telefone']);
 
-            $this->form_msg = array_merge($this->form_msg, $this->validar_end($this->form_msg, $this->form_data));
+            $this->form_msg = validar_dados($this->form_data);
 
             if (empty($this->form_msg)) {
                 $endereco = new Endereco($this->form_data['rua'], $this->form_data['numero'],
                     $this->form_data['bairro'], $this->form_data['cidade'], $this->form_data['uf']);
+                $endereco->setId($this->form_data['id_endereco']);
 
                 $empresa = new Empresa($this->form_data['cnpj'], $this->form_data['razao'],
-                    $this->form_data['telefone'],$endereco);
+                    $this->form_data['telefone'], $endereco);
 
                 EmpresaDao::editarEmpresa($empresa);
-                header("Location: ".HOME.'/administrador');
+                header("Location: ". HOME . '/exibir/empresas');
             }
         }
     }
@@ -56,5 +50,6 @@ class EditarEmpresaModel extends MainModel {
         $this->form_data['bairro'] = $e->getBairro();
         $this->form_data['cidade'] = $e->getCidade();
         $this->form_data['uf'] = $e->getUf();
+        $this->form_data['id_endereco'] = $e->getId();
     }
 }

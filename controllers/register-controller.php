@@ -148,6 +148,8 @@ class RegisterController extends MainController {
         $model = $this->load_model('colaborador/register-observacao-model');
 
         // Caso não esteja logado, utilizo o anônimo.
+        $cpf = '00000000000';
+
         if (isset($_SESSION['id'])) {
             $cpf = $_SESSION['id'];
         }
@@ -156,5 +158,33 @@ class RegisterController extends MainController {
         include $this->incluir_cabecalho();
         include ABSPATH . '/views/observacao-template.php';
         include ABSPATH . '/views/_includes/footer.php';
+    }
+
+    public function verificar() {
+
+        $tipo = $this->parametros[0];
+        $id = $this->parametros[1];
+
+        $id = retirar_mask($id);
+
+        $registro = null;
+
+        switch ($tipo) {
+            case 'colaborador':
+                $registro = ColaboradorDao::getColaboradorPorCpf($id);
+                break;
+            case 'doador':
+                $registro = DoadorDao::getDoadorPorCpf($id);
+                break;
+            case 'empresa':
+                $registro = EmpresaDao::getEmpresaByCnpj($id);
+                break;
+        }
+
+        if ($registro) {
+            echo true;
+        } else {
+            echo false;
+        }
     }
 }

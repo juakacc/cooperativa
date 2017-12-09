@@ -15,30 +15,21 @@ class RegisterDoacaoModel extends MainModel {
             $this->form_data = array();
             $this->form_msg = array();
 
-            if (isset($_POST['cancelar'])) {
-                header('Location: '. HOME . '/administrador');
-                return;
-            }
-
             foreach ($_POST as $key => $value) {
                 $this->form_data[$key] = $value;
             }
 
-            if (!validar_data($this->form_data['data'])) {
-                $this->form_msg['data'] = 'Digite uma data válida...';
-            }
-
-            if (strlen($this->form_data['descricao']) == 0) {
-                $this->form_msg['descricao'] = 'Descrição inválida...';
-            }
+            $this->form_msg = validar_dados($this->form_data);
 
             if (empty($this->form_msg)) {
                 $this->form_data['data'] = transformarParaBanco($this->form_data['data']);
 
-                $doacao = new Doacao($this->form_data['descricao'], $this->form_data['data'], $this->form_data['cpf']);
+                $doacao = new Doacao($this->form_data['descricao'], $this->form_data['data'],
+                    $this->form_data['cpf_doador']);
 
                 DoadorDao::adicionarDoacao($doacao);
-                header('Location: ' . HOME);
+                $_SESSION['msg'] = 'Doação registrada com sucesso';
+                header('Location: '.HOME.'/exibir/doacoes/'.date('Y-m-d'));
             }
         }
     }

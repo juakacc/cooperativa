@@ -14,6 +14,7 @@ class EmpresaDao {
             $stmt->execute();
             $stmt->close();
         }
+        $mysqli->close();
     }
 
     public static function editarEmpresa(Empresa $empresa) {
@@ -47,6 +48,7 @@ class EmpresaDao {
             }
             $stmt->close();
         }
+        $mysqli->close();
         return $empresas;
     }
 
@@ -58,6 +60,7 @@ class EmpresaDao {
     public static function getEmpresaByCnpj($cnpj) {
         $mysqli = getConexao();
         $sql = "SELECT razao, telefone, endereco_id FROM empresa WHERE cnpj = ?";
+        $empresa = null;
 
         if ($stmt = $mysqli->prepare($sql)) {
             $stmt->bind_param("s", $cnpj);
@@ -66,12 +69,12 @@ class EmpresaDao {
 
             if ($stmt->fetch()) {
                 $endereco = EnderecoDao::getEnderecoById($endereco_id);
-                $e = new Empresa($cnpj, $razao, $telefone, $endereco);
-                $stmt->close();
-                $mysqli->close();
-                return $e;
+                $empresa = new Empresa($cnpj, $razao, $telefone, $endereco);
             }
+            $stmt->close();
         }
+        $mysqli->close();
+        return $empresa;
     }
 
     /**
@@ -95,26 +98,9 @@ class EmpresaDao {
             }
             $stmt->close();
         }
+        $mysqli->close();
         return $encaminhamentos;
     }
-
-//    public static function getEncaminhamentosPorCnpj($cnpj) {
-//        $mysqli = getConexao();
-//        $sql = "SELECT * FROM encaminhamento WHERE empresa_cnpj = ?";
-//        $encaminhamentos = array();
-//
-//        if ($stmt = $mysqli->prepare($sql)) {
-//            $stmt->bind_param("s", $cnpj);
-//            $stmt->execute();
-//            $result = $stmt->get_result();
-//
-//            while ($e = $result->fetch_assoc()) {
-//                $encaminhamentos[] = $e;
-//            }
-//            $stmt->close();
-//        }
-//        return $encaminhamentos;
-//    }
 
     /**
      * Recupera o número de encaminhamentos de uma determinada empresa
@@ -124,6 +110,7 @@ class EmpresaDao {
     public static function getCountEncaminhamentosPorCnpj($cnpj) {
         $mysqli = getConexao();
         $sql = "SELECT count(*) as c FROM encaminhamento WHERE empresa_cnpj = ?";
+        $count = 0;
 
         if ($stmt = $mysqli->prepare($sql)) {
             $stmt->bind_param("s", $cnpj);
@@ -131,9 +118,12 @@ class EmpresaDao {
             $stmt->bind_result($c);
 
             if ($stmt->fetch()) {
-                return $c;
+                $count = $c;
             }
+            $stmt->close();
         }
+        $mysqli->close();
+        return $count;
     }
 
     public static function adicionarEncaminhamento(Encaminhamento $e) {
@@ -145,6 +135,7 @@ class EmpresaDao {
             $stmt->execute();
             $stmt->close();
         }
+        $mysqli->close();
     }
 
     public static function removerEmpresa($cnpj) {

@@ -4,7 +4,7 @@ class ColaboradorDao {
 
     public static function editarColaborador(Colaborador $colaborador) {
         $mysqli = getConexao();
-        $id_endereco = EnderecoDao::editarEndereco($colaborador->getEndereco());
+        EnderecoDao::editarEndereco($colaborador->getEndereco());
 
         $sql = "UPDATE colaborador SET nome = ?, telefone = ? WHERE cpf = ?";
 
@@ -20,6 +20,7 @@ class ColaboradorDao {
     public static function getColaboradorPorCpf($cpf) {
         $mysqli = getConexao();
         $sql = "SELECT nome, telefone, senha, endereco_id FROM colaborador WHERE cpf = ?";
+        $c = null;
 
         if ($stmt = $mysqli->prepare($sql)) {
             $stmt->bind_param("s", $cpf);
@@ -42,7 +43,9 @@ class ColaboradorDao {
         $colaboradores = array();
 
         $sql = "SELECT cpf, nome, telefone, endereco_id FROM colaborador";
-        $sql .= ($comAnonimo) ? '' : " WHERE cpf != '00000000000'";
+        if (!$comAnonimo) {
+            $sql .= " WHERE cpf != 00000000000";
+        }
 
         if ($stmt = $mysqli->prepare($sql)) {
             $stmt->execute();

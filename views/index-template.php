@@ -3,26 +3,42 @@ $result = $model->get_dados();
 ?>
 
 <div class="row">
-    <div class="col-8">
+    <div class="col">
+        <p>A Cooperativa União em busca de um mundo melhor para todos, junte-se a nós</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5 col-sm-8">
+
         <form method="POST" class="form-inline">
-            <div class="form-group">
-                <label class="col-form-label" for="data">Escolha um dia </label>
+            <label class="mr-sm-2" for="data">Escolha um dia:</label>
+            <div class="input-group">
                 <input type="text" name="data" id="data" placeholder="dd/mm/aaaa"
                        value="<?php echo check_array($model->form_data, 'data'); ?>" class="form-control"/>
-                <button type="submit" class="btn btn-primary">Pesquisar</button>
+
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </div>
             </div>
         </form>
+
+    </div><!-- Formulário -->
+
+    <div class="col-md-3">
+        <?php include ABSPATH . '/views/_includes/mostrar-erros.php'; ?>
     </div>
-    <div class="col-4">
+
+    <div class="col-md-4 col-sm-4">
         <h5 class="text-center">Movimentação do dia: <?php echo mostrar_data($model->data); ?></h5>
     </div>
-</div><!-- Formulário -->
+</div>
 
 <div class="row justify-content-center">
-    <div class="col-6">
+    <div class="col-sm col-md-6">
         <table class="table">
             <tr>
-                <th>Tipo</th><th>Quantidade</th>
+                <th>Tipo</th><th>Qtd</th>
             </tr>
             <tr>
                 <td><a href="<?php echo HOME; ?>/exibir/doacoes/<?php echo $model->data; ?>">Doações</a></td>
@@ -46,15 +62,14 @@ $result = $model->get_dados();
     </div>
 </div>
 
-<div class="row align-items-center">
-    <div class="col-5 text-right">
+<div class="row">
+    <div class="col-md-3 col-sm-12">
         Pessoal envolvido:
     </div>
-    <div class="col text-left">
-        <div>
-            <a href="<?php echo HOME; ?>/exibir/colaboradores" class="btn btn-primary">Colaboradores</a>
-            <a href="<?php echo HOME; ?>/exibir/doadores" class="btn btn-primary">Doadores</a>
-            <a href="<?php echo HOME; ?>/exibir/empresas" class="btn btn-primary">Empresas</a>
-        </div>
+
+    <div class="col-md-9 col-sm-12">
+        <a href="<?php echo HOME; ?>/exibir/colaboradores" class="btn">Colaboradores</a>
+        <a href="<?php echo HOME; ?>/exibir/doadores" class="btn">Doadores</a>
+        <a href="<?php echo HOME; ?>/exibir/empresas" class="btn">Empresas</a>
     </div>
 </div>

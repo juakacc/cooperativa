@@ -29,9 +29,12 @@ class DoadorDao {
         $mysqli->close();
     }
 
-    public static function getDoadores() {
+    public static function getDoadores($comAnonimo = false) {
         $mysqli = getConexao();
         $sql = "SELECT cpf, nome, telefone, endereco_id FROM doador";
+        if (!$comAnonimo) {
+            $sql .= " WHERE cpf != 00000000000";
+        }
         $doadores = array();
 
         if ($stmt = $mysqli->prepare($sql)) {
@@ -46,6 +49,7 @@ class DoadorDao {
             }
             $stmt->close();
         }
+        $mysqli->close();
         return $doadores;
     }
 
@@ -142,6 +146,7 @@ class DoadorDao {
     public static function getDoadorPorCpf($cpf) {
         $mysqli = getConexao();
         $sql = "SELECT nome, telefone, endereco_id FROM doador WHERE cpf = ?";
+        $c = null;
 
         if ($stmt = $mysqli->prepare($sql)) {
             $stmt->bind_param("s", $cpf);
@@ -151,9 +156,11 @@ class DoadorDao {
             if ($stmt->fetch()) {
                 $endereco = EnderecoDao::getEnderecoById($endereco_id);
                 $c = new Doador($cpf, $nome, $endereco, $telefone);
-                return $c;
             }
+            $stmt->close();
         }
+        $mysqli->close();
+        return $c;
     }
 
     public static function removerDoador($cpf) {

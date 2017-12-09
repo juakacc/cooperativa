@@ -17,17 +17,18 @@
     </div>
 </div>
 
-<table class="table table-bordered">
-    <tr>
-        <th>Data</th>
-        <th>Descrição</th>
-        <th>Colaborador</th>
-        <th>Endereço</th>
-    </tr>
-    <tr>
-        <td><?php echo mostrar_data($o->getData()); ?></td>
-        <td><?php echo $o->getDescricao(); ?></td>
-        <td><?php echo $c->getNome(); ?></td>
-        <td><?php echo $o->getLocal(); ?></td>
-    </tr>
-</table>
+<div class="row justify-content-center">
+    <div class="col-sm col-md-8">
+        <table class="table table-bordered">
+            <tr><th>Data</th><th>Descrição</th><th>Colaborador</th><th>Endereço</th></tr>
+
+            <tr>
+                <td><?php echo mostrar_data($o->getData()); ?></td>
+                <td><?php echo $o->getDescricao(); ?></td>
+                <td><?php echo $c->getNome(); ?></td>
+                <td><?php echo $o->getLocal(); ?></td>
+            </tr>
+        </table>
+    </div>
+</div>
+

@@ -1,5 +1,6 @@
 <?php
 $encaminhamentos = EmpresaDao::getEncaminhamentosPorData($data);
+$voltar = ($this->logado) ? HOME.'/'.$this->tipo : $_SESSION['goto_url'];
 ?>
 
 <div class="row">
@@ -8,32 +9,30 @@ $encaminhamentos = EmpresaDao::getEncaminhamentosPorData($data);
     </div>
 
     <div class="col">
-        <a href="<?php echo $_SESSION['goto_url']; ?>" class="btn btn-dark">Voltar</a>
+        <a href="<?php echo $voltar; ?>" class="btn btn-dark">Voltar</a>
     </div>
 </div>
 
-<?php if (!empty($encaminhamentos)): ?>
+<div class="row justify-content-center">
+    <div class="col-sm col-md-6">
 
-    <table class="table table-bordered">
-        <tr>
-            <th>Data</th><th>Descrição</th><th>Empresa</th>
-        </tr>
+        <?php if (!empty($encaminhamentos)): ?>
 
-        <?php foreach ($encaminhamentos as $e): ?>
-            <?php $empresa = EmpresaDao::getEmpresaByCnpj($e->getCnpj()); ?>
-            <tr>
-                <td><?php echo mostrar_data($e->getData()); ?></td>
-                <td><?php echo $e->getDescricao(); ?></td>
-                <td><?php echo $empresa->getRazao(); ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
+            <table class="table table-bordered">
+                <tr><th>Data</th><th>Descrição</th><th>Empresa</th></tr>
 
-<?php else: ?>
+                <?php foreach ($encaminhamentos as $e): ?>
+                    <?php $empresa = EmpresaDao::getEmpresaByCnpj($e->getCnpj()); ?>
+                    <tr>
+                        <td><?php echo mostrar_data($e->getData()); ?></td>
+                        <td><?php echo $e->getDescricao(); ?></td>
+                        <td><?php echo $empresa->getRazao(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
 
-    <div class="row">
-        <div class="col" align="center">
+        <?php else: ?>
             <p>Nenhum encaminhamento realizado.</p>
-        </div>
+        <?php endif; ?>
     </div>
-<?php endif; ?>
+</div>

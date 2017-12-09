@@ -7,7 +7,10 @@ $colaboradores = ColaboradorDao::getColaboradores();
 <p>Registre a presença de um colaborador em um determinado dia.</p>
 
 <div class="row justify-content-center">
-    <div class="col-6">
+    <div class="col-sm col-md-6">
+
+        <?php include ABSPATH . '/views/_includes/mostrar-erros.php'; ?>
+
         <form method="POST" class="form-dados">
 
             <div class="form-group row">
@@ -24,7 +27,7 @@ $colaboradores = ColaboradorDao::getColaboradores();
             <div class="form-group row">
                 <label class="col-4 col-form-label" for="data">Data</label>
                 <div class="col-8">
-                    <input type="date" name="data" id="data"
+                    <input type="text" name="data" id="data"
                            value="<?php echo check_array($model->form_data, 'data'); ?>" class="form-control"/>
                 </div>
             </div>

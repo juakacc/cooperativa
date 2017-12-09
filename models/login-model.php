@@ -12,35 +12,40 @@ class LoginModel extends MainModel {
         $this->form_data = array();
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST' and !empty($_POST)) {
-            if (isset($_POST['cancelar'])) {
-                header('Location: ' . HOME);
-                return;
-            }
-            
+
             foreach ($_POST as $key => $value) {
                 $this->form_data[$key] = $value;
             }
 
+            $this->form_data['ide'] = retirar_mask($this->form_data['ide']);
+
             if (check_array($this->form_data,'ide') == '') {
-                $this->form_msg[] = 'Digite o CPF...';
+                $this->form_msg[] = 'Digite o CPF';
                 return;
             }
             $pessoa = $this->getPessoaByCpf($this->form_data['tipo'], $this->form_data['ide']);
 
             if (!$pessoa) {
-                $this->form_msg[] = 'Usuário inexistente...';
+                $this->form_msg[] = 'Usuário inexistente';
                 return;
             }
 
-            if ($pessoa->getSenha() != $this->form_data['senha']) {
-                $this->form_msg[] = 'Senha incorreta...';
+            if ($this->form_data['senha'] != '') {
+                if ($pessoa->getSenha() != $this->form_data['senha']) {
+                    $this->form_msg[] = 'Senha incorreta';
+                    return;
+                }
+            } else {
+                $this->form_msg[] = 'Digite a senha';
                 return;
             }
 
-            $_SESSION['logado'] = true;
-            $_SESSION['tipo'] = $this->form_data['tipo'];
-            $_SESSION['id'] = $pessoa->getCpf();
-            header('Location: '.HOME. '/' . $this->form_data['tipo']);
+            if (empty($this->form_msg)) {
+                $_SESSION['logado'] = true;
+                $_SESSION['tipo'] = $this->form_data['tipo'];
+                $_SESSION['id'] = $pessoa->getCpf();
+                header('Location: ' . HOME . '/' . $this->form_data['tipo']);
+            }
         }
     }
 

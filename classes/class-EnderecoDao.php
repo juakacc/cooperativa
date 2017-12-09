@@ -48,14 +48,25 @@ class EnderecoDao {
 
             if ($stmt->fetch()) {
                 $endereco = new Endereco($rua, $numero, $bairro, $cidade, $uf);
+                $endereco->setId($id);
             }
             $mysqli->close();
         }
         return $endereco;
     }
 
-    public static function editarEndereco($endereco) {
+    public static function editarEndereco(Endereco $e) {
+        $mysqli = getConexao();
+        $sql = "UPDATE endereco SET rua = ?, numero = ?, 
+                bairro = ?, cidade = ?, uf = ? WHERE id = ?";
 
+        if ($stmt = $mysqli->prepare($sql)) {
+            $stmt->bind_param("sisssi", $e->getRua(), $e->getNumero(), $e->getBairro(),
+                $e->getCidade(), $e->getUf(), $e->getId());
+            $stmt->execute();
+            $stmt->close();
+        }
+        $mysqli->close();
     }
 
 

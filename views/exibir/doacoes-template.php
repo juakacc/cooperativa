@@ -1,5 +1,6 @@
 <?php
 $doacoes = DoadorDao::getDoacoesPorData($data);
+$voltar = ($this->logado) ? HOME.'/'.$this->tipo : $_SESSION['goto_url'];
 ?>
 
 <div class="row">
@@ -8,33 +9,30 @@ $doacoes = DoadorDao::getDoacoesPorData($data);
     </div>
 
     <div class="col">
-        <a href="<?php echo $_SESSION['goto_url']; ?>" class="btn btn-dark">Voltar</a>
+        <a href="<?php echo $voltar; ?>" class="btn btn-dark">Voltar</a>
     </div>
 </div>
 
-<?php if (!empty($doacoes)): ?>
+<div class="row justify-content-center">
+    <div class="col-sm col-md-6">
 
-    <table class="table table-bordered">
-            <tr>
-                <th>Data</th><th>Descrição</th><th>Doador</th>
-            </tr>
-            <?php foreach ($doacoes as $d):
-                $doador = DoadorDao::getDoadorPorCpf($d->getCpf());
-                ?>
+        <?php if (!empty($doacoes)): ?>
 
-                <tr>
-                    <td><?php echo mostrar_data($d->getData()); ?></td>
-                    <td><?php echo $d->getDescricao(); ?></td>
-                    <td><?php echo $doador->getNome(); ?></td>
-                </tr>
-            <?php endforeach; ?>
-    </table>
+            <table class="table table-bordered">
+                <tr><th>Data</th><th>Descrição</th><th>Doador</th></tr>
 
-<?php else: ?>
+                <?php foreach ($doacoes as $d): ?>
+                    <?php $doador = DoadorDao::getDoadorPorCpf($d->getCpf()); ?>
 
-    <div class="row">
-        <div class="col" align="center">
+                    <tr>
+                        <td><?php echo mostrar_data($d->getData()); ?></td>
+                        <td><?php echo $d->getDescricao(); ?></td>
+                        <td><?php echo $doador->getNome(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php else: ?>
             <p>Nenhuma doação realizada.</p>
-        </div>
+        <?php endif; ?>
     </div>
-<?php endif; ?>
+</div>

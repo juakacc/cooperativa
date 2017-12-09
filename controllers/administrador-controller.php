@@ -32,7 +32,7 @@ class AdministradorController extends MainController {
      */
     public function logout() {
         session_destroy();
-        $goto_url = (isset($_SESSION['goto_url'])) ? $_SESSION['goto_url'] : HOME;
-        header('Location: '. $goto_url);
+        //$goto_url = (isset($_SESSION['goto_url'])) ? $_SESSION['goto_url'] : HOME;
+        header('Location: '. HOME);
     }
 }

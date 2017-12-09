@@ -1,70 +1,62 @@
 <?php
-$colaboradores = ColaboradorDao::getColaboradores();
+$colaboradores = ($this->logado) ? ColaboradorDao::getColaboradores()
+    : ColaboradorDao::getColaboradores(true);
+$voltar = ($this->logado) ? HOME.'/'.$this->tipo : $_SESSION['goto_url'];
 ?>
 
 <div class="row">
     <div class="col">
         <h5>Colaboradores</h5>
     </div>
-
     <div class="col">
-        <a href="<?php echo $_SESSION['goto_url']; ?>" class="btn btn-dark">Voltar</a>
+        <a href="<?php echo $voltar; ?>" class="btn btn-dark">Voltar</a>
     </div>
 </div>
 
-<!-- No caso de remoção -->
-<?php if (isset($_SESSION['removido'])): ?>
-    <?php unset($_SESSION['removido']); ?>
-    <div class="row">
-        <div class="col">
-            <p>Remoção efetuada com sucesso!</p>
-        </div>
+<div class="row">
+    <div class="col">
+        <p>Quadro de colaboradores que contribuem com a nossa cooperativa</p>
     </div>
-<?php endif; ?>
+</div>
 
-<?php if (count($colaboradores) > 0): ?>
+<div class="row justify-content-center">
+    <div class="col-sm col-md-6">
 
-    <?php if (!$this->logado): ?>
+        <?php if (!empty($colaboradores)): ?>
 
-        <table class="table table-bordered">
-            <tr>
-                <th>Nome</th><th>Colaborações</th>
-            </tr>
+            <?php if (!$this->logado or $this->tipo != 'administrador'): ?>
 
-            <?php foreach($colaboradores as $c): ?>
-               <?php $count = ColaboradorDao::getCountColaboracoesPorCpf($c->getCpf()); ?>
-                <tr>
-                    <td><?php echo $c->getNome(); ?></td>
-                    <td><?php echo $count; ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php else: ?>
+                <table class="table table-bordered">
+                    <tr><th>Nome</th><th>Colaborações</th></tr>
 
-        <table class="table table-bordered">
-            <tr>
-                <th>CPF</th><th>Nome</th><th>Opções</th>
-            </tr>
+                    <?php foreach($colaboradores as $c): ?>
+                        <?php $count = ColaboradorDao::getCountColaboracoesPorCpf($c->getCpf()); ?>
+                        <tr>
+                            <td><?php echo $c->getNome(); ?></td>
+                            <td><?php echo $count; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table> <!-- Exibição para usuário normais -->
+            <?php else: ?>
 
-            <?php foreach($colaboradores as $c): ?>
-                <tr>
-                    <td><?php echo mostrar_cpf($c->getCpf()); ?></td>
-                    <td><?php echo $c->getNome(); ?></td>
-                    <td>
-                        <a href="<?php echo HOME.'/editar/colaborador/' . $c->getCpf(); ?>">Editar</a>
-                        <a href="<?php echo HOME.'/remover/index/colaborador/' . $c->getCpf(); ?>">Remover</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php endif; ?>
+                <table class="table table-bordered">
+                    <tr><th>CPF</th><th>Nome</th><th>Opções</th></tr>
 
-<?php else: ?>
+                    <?php foreach($colaboradores as $c): ?>
+                        <tr>
+                            <td><?php echo mostrar_cpf($c->getCpf()); ?></td>
+                            <td><?php echo $c->getNome(); ?></td>
+                            <td>
+                                <a href="<?php echo HOME.'/editar/colaborador/' . $c->getCpf(); ?>">Editar</a>
+                                <a href="<?php echo HOME.'/remover/index/colaborador/' . $c->getCpf(); ?>">Remover</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table> <!-- Exibição para administrador -->
+            <?php endif; ?>
 
-    <div class="row">
-        <div class="col" align="center">
+        <?php else: ?>
             <p>Nenhum colaborador cadastrado.</p>
-        </div>
+        <?php endif;?>
     </div>
-
-<?php endif;?>
+</div>

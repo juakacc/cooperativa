@@ -16,27 +16,22 @@ class RegisterColaboracaoModel extends MainModel {
             $this->form_data = array();
             $this->form_msg = array();
 
-            if (isset($_POST['cancelar'])) {
-                header('Location: '. HOME . '/administrador');
-                return;
-            }
-
             foreach ($_POST as $key => $value) {
                 $this->form_data[$key] = $value;
             }
 
-            if (!validar_data($this->form_data['data'])) {
-                $this->form_msg[] = 'Digite uma data válida...';
-            }
+            $this->form_msg = validar_dados($this->form_data);
 
             if (empty($this->form_msg)) {
                 $this->form_data['data'] = transformarParaBanco($this->form_data['data']);
 
                 $colaboracao = new Colaboracao($this->form_data['descricao'],
-                    $this->form_data['data'], $this->form_data['funcao'], $this->form_data['cpf']);
+                    $this->form_data['data'], $this->form_data['funcao'],
+                    $this->form_data['cpf_colaborador']);
 
                 ColaboradorDao::adicionarColaboracao($colaboracao);
-                header('Location: ' . HOME . '/adm');
+                $_SESSION['msg'] = 'Colaboração registrada com sucesso';
+                header('Location: ' . HOME . '/exibir/colaboracoes/' . date('Y-m-d'));
             }
         }
     }

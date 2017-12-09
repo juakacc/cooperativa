@@ -1,5 +1,6 @@
 <?php
 $colaboracoes = ColaboradorDao::getColaboracoesPorData($data);
+$voltar = ($this->logado) ? HOME.'/'.$this->tipo : $_SESSION['goto_url'];
 ?>
 
 <div class="row">
@@ -8,33 +9,32 @@ $colaboracoes = ColaboradorDao::getColaboracoesPorData($data);
     </div>
 
     <div class="col">
-        <a href="<?php echo $_SESSION['goto_url']; ?>" class="btn btn-dark">Voltar</a>
+        <a href="<?php echo $voltar; ?>" class="btn btn-dark">Voltar</a>
     </div>
 </div>
 
-<?php if (!empty($colaboracoes)): ?>
+<div class="row justify-content-center">
+    <div class="col-sm col-md-6">
 
-    <table class="table table-bordered">
-        <tr>
-            <th>Data</th><th>Função</th><th>Descrição</th><th>Doador</th>
-        </tr>
-        <?php foreach ($colaboracoes as $c):
-                $colaborador = ColaboradorDao::getColaboradorPorCpf($c->getCpf());
-        ?>
+        <?php if (!empty($colaboracoes)): ?>
 
-            <tr>
-                <td><?php echo mostrar_data($c->getData()); ?></td>
-                <td><?php echo $c->getFuncao(); ?></td>
-                <td><?php echo $c->getDescricao(); ?></td>
-                <td><?php echo $colaborador->getNome(); ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
+            <table class="table table-bordered">
+                <tr><th>Data</th><th>Função</th><th>Descrição</th><th>Colaborador</th></tr>
 
-<?php else: ?>
-    <div class="row">
-        <div class="col" align="center">
+                <?php foreach ($colaboracoes as $c): ?>
+                    <?php $colaborador = ColaboradorDao::getColaboradorPorCpf($c->getCpf()); ?>
+
+                    <tr>
+                        <td><?php echo mostrar_data($c->getData()); ?></td>
+                        <td><?php echo $c->getFuncao(); ?></td>
+                        <td><?php echo $c->getDescricao(); ?></td>
+                        <td><?php echo $colaborador->getNome(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+
+        <?php else: ?>
             <p>Nenhuma colaboração realizada.</p>
-        </div>
+        <?php endif; ?>
     </div>
-<?php endif; ?>
+</div>

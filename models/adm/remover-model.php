@@ -25,11 +25,6 @@ class RemoverModel extends MainModel {
     public function validate_form() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' and !empty($_POST)) {
 
-            if (isset($_POST['nao'])) {
-                header('Location: '. HOME . '/administrador');
-                return;
-            }
-
             switch ($this->form_data['tipo']) {
                 case 'colaborador':
                     ColaboradorDao::removerColaborador($this->form_data['id']);
@@ -42,7 +37,7 @@ class RemoverModel extends MainModel {
                     break;
             }
 
-            $_SESSION['removido'] = true;
+            $_SESSION['msg'] = "Remoção efetuada com sucesso";
             header('Location: ' . $_SESSION['goto_url']);
             return;
         }

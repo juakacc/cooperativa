@@ -13,42 +13,27 @@ class RegisterObservacaoModel extends MainModel {
         $this->form_msg = array();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' and !empty($_POST)) {
-            if (isset($_POST['cancelar'])) {
-                header('Location: ' . $_SESSION['goto_url']);
-                return;
-            }
 
             foreach ($_POST as $key => $value) {
                 $this->form_data[$key] = $value;
-
-                if ($value == '')
-                    $this->form_msg['a'] = 'Por favor, preencha todos os campos...';
-            }
-            if (isset($this->form_data['cpf'])) {
-                if (!is_numeric($this->form_data['cpf'])) {
-                    $this->form_msg[] = 'CPF apenas com números...';
-                    $this->form_data['cpf'] = '';
-                }
-            } else {
-                $this->form_data['cpf'] = '00000000000';
             }
 
-            if (!is_numeric($this->form_data['numero'])) {
-                $this->form_msg[] = 'Digite um número válido...';
-                $this->form_data['numero'] = '';
+            if (!isset($this->form_data['cpf_colaborador'])) {
+                $this->form_data['cpf_colaborador'] = $cpf;
             }
+
+            $this->form_msg = validar_dados($this->form_data);
 
             if (empty($this->form_msg)) {
                 $endereco = new Endereco($this->form_data['rua'], $this->form_data['numero'],
                     $this->form_data['bairro'], $this->form_data['cidade'], $this->form_data['uf']);
 
                 $observacao = new Observacao($this->form_data['descricao'],
-                    date('Y-m-d'), $endereco, $this->form_data['cpf']);
+                    date('Y-m-d'), $endereco, $this->form_data['cpf_colaborador']);
 
                 ColaboradorDao::adicionarObservacao($observacao);
-
+                $_SESSION['msg'] = 'Observação enviada ao administrador';
                 header('Location: ' . $_SESSION['goto_url']);
-                return;
             }
         }
     }

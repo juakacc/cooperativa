@@ -66,25 +66,25 @@ class MainModel {
         }
     }
 
-    private function getQuery($tipo) {
-        if ($tipo == 'empresa') {
-            return "SELECT cnpj, razao, telefone";
-        }
-    }
-
-    function validar_end($form_msg, $form_data) {
-        if (strlen($form_data['rua']) == 0) {
-            $form_msg['rua'] = 'Rua inválida';
-        }
-        if (!is_numeric($form_data['numero'])) {
-            $form_msg['numero'] = 'Número inválido...';
-            $form_data['numero'] = '';
-        }
-        if (strlen($form_data['bairro']) == 0) {
-            $form_msg['bairro'] = 'Rua inválida';
-        }
-        return $form_msg;
-    }
+//    function validar_end($form_msg, $form_data) {
+//        if (!validar_str_nao_vazia($form_data['rua'])) {
+//            $form_msg['rua'] = 'Rua inválida';
+//            return $form_msg;
+//        }
+//        if (!validar_numero($form_data['numero'])) {
+//            $form_msg['numero'] = 'Número inválido';
+//            return $form_msg;
+//        }
+//        if (!validar_str_nao_vazia($form_data['bairro'])) {
+//            $form_msg['bairro'] = 'Bairro inválido';
+//            return $form_msg;
+//        }
+//        if (!validar_str_nao_vazia($form_data['cidade'])) {
+//            $form_msg['cidade'] = 'Cidade inválida';
+//            return $form_msg;
+//        }
+//        return $form_msg;
+//    }
 
     /**
      * Fechar conexões

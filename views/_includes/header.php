@@ -10,4 +10,4 @@
         <link href="<?php echo HOME; ?>/views/_css/style.css" rel="stylesheet"/>
     </head>
     <body>
-    <div  class="container">
+    <div  class="container-fluid">
