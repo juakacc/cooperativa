@@ -26,7 +26,7 @@ class RegisterEncamiModel extends MainModel {
 
                 EmpresaDao::adicionarEncaminhamento($encaminhamento);
                 $_SESSION['msg'] = 'Encaminhamento registrado com sucesso';
-                header('Location: '.HOME.'/exibir/encaminhamentos/'.date('Y-m-d'));
+                header('Location: '.HOME.'/exibir/encaminhamentos/'.$this->form_data['data']);
             }
         }
     }

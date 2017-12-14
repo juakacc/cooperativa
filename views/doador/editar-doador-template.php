@@ -8,5 +8,6 @@ $edicao = true;
 ?>
 
 <h5>Editar doador</h5>
+<p>Edite os dados de um doador cadastrado</p>
 
 <?php include ABSPATH . '/views/adm/forms/form-colaborador.php'; ?>

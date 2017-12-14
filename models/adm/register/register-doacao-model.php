@@ -29,7 +29,7 @@ class RegisterDoacaoModel extends MainModel {
 
                 DoadorDao::adicionarDoacao($doacao);
                 $_SESSION['msg'] = 'Doação registrada com sucesso';
-                header('Location: '.HOME.'/exibir/doacoes/'.date('Y-m-d'));
+                header('Location: '.HOME.'/exibir/doacoes/'.$this->form_data['data']);
             }
         }
     }

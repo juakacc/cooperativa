@@ -67,4 +67,24 @@ class IndexController extends MainController {
         include ABSPATH . '/views/visite-template.php';
         include ABSPATH . '/views/_includes/footer.php';
     }
+
+    public function faq() {
+
+        $model = new MainModel($this);
+
+        include ABSPATH . '/views/_includes/header.php';
+        include $this->incluir_cabecalho();
+        include ABSPATH . '/views/faq-template.php';
+        include ABSPATH . '/views/_includes/footer.php';
+    }
+
+    public function manual() {
+
+        $model = new MainModel($this);
+
+        include ABSPATH . '/views/_includes/header.php';
+        include $this->incluir_cabecalho();
+        include ABSPATH . '/views/manual-template.php';
+        include ABSPATH . '/views/_includes/footer.php';
+    }
 }

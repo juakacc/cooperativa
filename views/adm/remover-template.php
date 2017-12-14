@@ -25,7 +25,7 @@ $model->validate_form();
                     <input type="submit" value="Sim" name="sim" id="sim" class="btn btn-success form-control"/>
                 </div>
                 <div class="col">
-                    <a href="<?php echo $_SESSION['goto_url']; ?>" class="btn btn-warning form-control" id="nao">Não</a>
+                    <a href="<?php echo $_SESSION['goto_url']; ?>" class="btn btn-danger form-control" id="nao">Não</a>
                 </div>
             </div><!-- Linha do formulário -->
         </form>

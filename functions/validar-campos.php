@@ -1,6 +1,7 @@
 <?php
 
 function validar_dados($form_data) {
+    $form_msg = array();
     if (isset($form_data['cpf']) and !validar_cpf($form_data['cpf'])) {
         $form_msg['cpf'] = 'CPF inválido';
     }

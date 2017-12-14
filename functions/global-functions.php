@@ -25,6 +25,11 @@ function __autoload($className) {
     $file = ABSPATH . '/classes/class-' . $className . '.php';
     if (file_exists($file)) {
         require_once $file;
+    } else {
+        $file = ABSPATH . '/classes/dao/class-' . $className . '.php';
+        if (file_exists($file)) {
+            require_once $file;
+        }
     }
 }
 

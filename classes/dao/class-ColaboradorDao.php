@@ -91,15 +91,16 @@ class ColaboradorDao {
             $stmt->execute();
             $stmt->close();
 
-            ColaboradorDao::registrarPresenca($c->getCpf(), $c->getData(), $mysqli);
+            ColaboradorDao::registrarPresenca($c->getCpf(), $c->getData());
         }
+        $mysqli->close();
     }
 
     /**
      * Registra a presença do colaborador nesse dia na cooperativa.
      * @param string $data
      */
-    public static function registrarPresenca($data = '', $cpf) {
+    public static function registrarPresenca($cpf, $data = '') {
         $mysqli = getConexao();
 
         if ($data == '')
@@ -249,6 +250,10 @@ class ColaboradorDao {
         }
     }
 
+    /**
+     * Remove um colaborador
+     * @param $cpf
+     */
     public static function removerColaborador($cpf) {
         $mysqli = getConexao();
         $sql = "DELETE FROM colaborador WHERE cpf = ?";

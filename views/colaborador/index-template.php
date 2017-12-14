@@ -7,49 +7,48 @@ $observacoes = ColaboradorDao::getObservacoesPorCpf($_SESSION['id']);
 
 <h5>Colaborações efetuadas</h5>
 
-<?php if (!empty($colaboracoes)): ?>
-    <table class="table table-bordered">
-        <tr>
-            <th>Data</th><th>Função</th><th>Descrição</th>
-        </tr>
+<div class="row justify-content-center">
+    <div class="col-sm col-md-8">
 
-        <?php foreach ($colaboracoes as $c): ?>
-            <tr>
-                <td><?php echo mostrar_data($c->getData()); ?></td>
-                <td><?php echo $c->getFuncao(); ?></td>
-                <td><?php echo $c->getDescricao(); ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-<?php else: ?>
-    <div class="row justify-content-center">
-        <div class="col" align="center">
+        <?php if (!empty($colaboracoes)): ?>
+            <table class="table table-bordered">
+                <tr><th>Data</th><th>Função</th><th>Descrição</th></tr>
+
+                <?php foreach ($colaboracoes as $c): ?>
+                    <tr>
+                        <td><?php echo mostrar_data($c->getData()); ?></td>
+                        <td><?php echo $c->getFuncao(); ?></td>
+                        <td><?php echo $c->getDescricao(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php else: ?>
             <p>Nenhuma colaboração efetuada</p>
-        </div>
+        <?php endif; ?>
     </div>
-<?php endif; ?>
+</div>
 
 <h5>Observações efetuadas</h5>
 
-<?php if (!empty($observacoes)): ?>
-    <table class="table table-bordered">
-        <tr>
-            <th>Data</th><th>Descrição</th><th>Local</th>
-        </tr>
+<div class="row justify-content-center">
+    <div class="col-sm col-md-8">
 
-        <?php foreach ($observacoes as $c): ?>
-            <tr>
-                <td><?php echo mostrar_data($c->getData()); ?></td>
-                <td><?php echo $c->getDescricao(); ?></td>
-                <td><?php echo $c->getLocal(); ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
+        <?php if (!empty($observacoes)): ?>
+            <table class="table table-bordered">
+                <tr><th>Data</th><th>Descrição</th><th>Local</th></tr>
 
-<?php else: ?>
-    <div class="row justify-content-center">
-        <div class="col" align="center">
+                <?php foreach ($observacoes as $c): ?>
+                    <tr>
+                        <td><?php echo mostrar_data($c->getData()); ?></td>
+                        <td><?php echo $c->getDescricao(); ?></td>
+                        <td><?php echo $c->getLocal(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+
+        <?php else: ?>
             <p>Nenhuma observação efetuada</p>
-        </div>
+        <?php endif; ?>
+
     </div>
-<?php endif; ?>
+</div>

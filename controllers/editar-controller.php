@@ -9,7 +9,6 @@ class EditarController extends MainController {
     public function colaborador() {
 
         if (empty($this->parametros)) {
-            $_SESSION['goto_url'] = HOME . '/index/login';
             header('Location: ' . HOME . '/administrador/logout');
             return;
         }
@@ -37,7 +36,6 @@ class EditarController extends MainController {
     public function doador() {
 
         if (empty($this->parametros)) {
-            $_SESSION['goto_url'] = HOME . '/index/login';
             header('Location: ' . HOME . '/administrador/logout');
             return;
         }
@@ -69,6 +67,7 @@ class EditarController extends MainController {
             return;
         }
         if (empty($this->parametros)) {
+            header('Location: ' . HOME . '/administrador/logout');
             return;
         }
         $model = $this->load_model('adm/editar/editar-empresa-model');
@@ -88,6 +87,7 @@ class EditarController extends MainController {
         }
 
         if (empty($this->parametros)) {
+            header('Location: ' . HOME . '/administrador/logout');
             return;
         }
         $model = $this->load_model('adm/editar/editar-admin-model');

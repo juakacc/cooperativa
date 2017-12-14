@@ -24,8 +24,7 @@ class RegisterDiariaModel extends MainModel {
             if (empty($this->form_msg)) {
                 $this->form_data['data'] = transformarParaBanco($this->form_data['data']);
 
-                ColaboradorDao::registrarPresenca($this->form_data['data'],
-                    $this->form_data['cpf'], $this->mysqli);
+                ColaboradorDao::registrarPresenca($this->form_data['cpf'], $this->form_data['data']);
 
                 $_SESSION['msg'] = 'Diária registrada com sucesso';
                 header('Location: ' . HOME . '/administrador');

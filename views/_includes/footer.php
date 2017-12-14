@@ -51,6 +51,16 @@
         <li class="nav-item">
             <a href="<?php echo HOME; ?>/index/visite-nos" class="nav-link">Visite-nos</a>
         </li>
+
+        <li class="nav-item dropup">
+            <a class="nav-link dropdown-toggle btn" href="#" data-toggle="dropdown">Ajuda</a>
+
+            <div class="dropdown-menu">
+                <a href="<?php echo HOME . '/index/faq'; ?>" class="dropdown-item">FAQ</a>
+                <?php $manual = ($this->logado) ? '/administrador/manual' : '/index/manual'; ?>
+                <a href="<?php echo HOME . $manual; ?>" class="dropdown-item">Manual</a>
+            </div>
+        </li><!-- Ajuda -->
     </ul>
     <p>2017 - Todos os direitos reservados</p>
 </footer>
@@ -63,7 +73,7 @@
 
 <!--    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>-->
 <script src="<?php echo HOME; ?>/views/_js/jquery.validate.js"></script>
-<!--    <script src="--><?php //echo HOME; ?><!--/views/_js/valida-dados.js"></script>-->
+    <script src="<?php echo HOME; ?>/views/_js/valida-dados.js"></script>
 
 <!--    <script src="--><?php //echo HOME; ?><!--/views/_js/jquery.masked-1.4.1.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>

@@ -31,7 +31,7 @@ class RegisterColaboracaoModel extends MainModel {
 
                 ColaboradorDao::adicionarColaboracao($colaboracao);
                 $_SESSION['msg'] = 'Colaboração registrada com sucesso';
-                header('Location: ' . HOME . '/exibir/colaboracoes/' . date('Y-m-d'));
+                header('Location: ' . HOME . '/exibir/colaboracoes/' . $this->form_data['data']);
             }
         }
     }

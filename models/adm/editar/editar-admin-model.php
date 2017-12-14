@@ -17,6 +17,13 @@ class EditarAdminModel extends MainModel {
 
             $this->form_msg = validar_dados($this->form_data);
 
+            $senha = $_POST['senha'];
+            $senha2 = $_POST['senha2'];
+
+            if ($senha != $senha2) {
+                $this->form_msg['senha'] = 'Senhas diferentes';
+            }
+
             if (empty($this->form_msg)) {
                 $endereco = new Endereco($this->form_data['rua'],
                     $this->form_data['numero'], $this->form_data['bairro'],
@@ -26,13 +33,18 @@ class EditarAdminModel extends MainModel {
                 $admin = new Administrador($this->form_data['cpf'],
                     $this->form_data['nome'], $endereco, $this->form_data['telefone']);
 
+                $admin->setId($this->form_data['id']);
+                $admin->setSenha($this->form_data['senha']);
+
                 AdministradorDao::editarAdmin($admin);
-                header("Location: " . HOME . '/administrador/');
+                $_SESSION['msg'] = "Dados alterados, faça login novamente";
+                header("Location: " . HOME . '/administrador/logout');
             }
         }
     }
 
     public function prepararExibir(Administrador $admin) {
+        $this->form_data['id'] = $admin->getId();
         $this->form_data['cpf'] = $admin->getCpf();
         $this->form_data['nome'] = $admin->getNome();
         $this->form_data['telefone'] = $admin->getTelefone();

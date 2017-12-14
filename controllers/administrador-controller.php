@@ -26,6 +26,15 @@ class AdministradorController extends MainController {
         include ABSPATH . '/views/_includes/footer.php';
     }
 
+    public function manual() {
+        $model = new MainModel($this);
+
+        include ABSPATH . '/views/_includes/header.php';
+        include $this->incluir_cabecalho();
+        include ABSPATH . '/views/adm/manual-template.php';
+        include ABSPATH . '/views/_includes/footer.php';
+    }
+
     /**
      * Realiza o logout do usuário, destruindo os dados em sessão.
      * @param string $goto_url
